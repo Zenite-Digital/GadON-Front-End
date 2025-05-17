@@ -11,9 +11,9 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 export default function EditProfileScreen() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState('Pai do Tui');
+  const [email, setEmail] = useState('paidotui@gmail.com');
+  const [password, setPassword] = useState('123456789');
   const [showPassword, setShowPassword] = useState(false);
   const [cadastroProdutor, setCadastroProdutor] = useState('');
 
