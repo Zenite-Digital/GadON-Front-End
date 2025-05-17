@@ -13,7 +13,7 @@ export default function TabOneScreen() {
       <EditScreenInfo path="app/(tabs)/index.tsx" />
       <TemplateComponent />
       <TemplateComponent text="Texto" />
-      <EditProfileScreen /> {/* Adicione aqui para exibir a tela de edição de perfil */}
+      <EditProfileScreen />
     </View>
   );
 }
