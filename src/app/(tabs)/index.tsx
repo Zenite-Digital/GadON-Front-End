@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
 
-import EditScreenInfo from '@components/edit-screen-info/EditScreenInfo';
+import EditProfileScreen from '../atualizar-perfil';
 import { Text, View } from '@components/Themed';
 import TemplateComponent from '@components/template-component';
+import EditScreenInfo from '@components/edit-screen-info/EditScreenInfo';
 
 export default function TabOneScreen() {
   return (
@@ -12,6 +13,7 @@ export default function TabOneScreen() {
       <EditScreenInfo path="app/(tabs)/index.tsx" />
       <TemplateComponent />
       <TemplateComponent text="Texto" />
+      <EditProfileScreen /> {/* Adicione aqui para exibir a tela de edição de perfil */}
     </View>
   );
 }
