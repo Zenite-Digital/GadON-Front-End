@@ -15,21 +15,12 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@assets/*": [
-        "./assets/*"
-      ],
-      "@icons/*": [
-        "./assets/icons/*"
-      ],
-      "@constants/*": [
-        "./src/constants/*"
-      ],
-      "@hooks/*": [
-        "./src/hooks/*"
-      ]
+      "@components/*": ["./src/components/*"],
+      "@configuration/*": ["./configuration/*"],
+      "@assets/*": ["./assets/*"],
+      "@icons/*": ["./assets/icons/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@hooks/*": ["./src/hooks/*"]
     }
   },
   "include": [
