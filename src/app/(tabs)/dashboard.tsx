@@ -9,10 +9,6 @@ import {
 export default function TabDashboard() {
     return (
         <ScrollView style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.title}>Finanças</Text>
-            </View>
-
             <View style={styles.alertCard}>
                 <Text style={styles.alertText}>Prejuízo</Text>
                 <Text style={styles.alertSubText}>Lote 1</Text>
@@ -56,6 +52,15 @@ export default function TabDashboard() {
 
             <View style={styles.chart}>
                 <Text style={styles.chartTitle}>Faturamento</Text>
+            </View>
+
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={[styles.button, styles.expenseButton]}>
+                    <Text style={styles.buttonText}>Adicionar Gastos</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.button, styles.incomeButton]}>
+                    <Text style={styles.buttonText}>Adicionar Ganho</Text>
+                </TouchableOpacity>
             </View>
         </ScrollView>
     );
@@ -133,5 +138,28 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
         marginBottom: 8,
+    },
+    buttonContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: 16,
+    },
+    button: {
+        flex: 1,
+        padding: 16,
+        borderRadius: 8,
+        alignItems: "center",
+        marginHorizontal: 8,
+    },
+    expenseButton: {
+        backgroundColor: "#ff4d4d",
+    },
+    incomeButton: {
+        backgroundColor: "#4caf50",
+    },
+    buttonText: {
+        color: "#fff",
+        fontSize: 16,
+        fontWeight: "bold",
     },
 });

@@ -48,10 +48,15 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="dashboard"
                 options={{
-                    title: "Dashboard",
+                    title: "Finanças",
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="code" color={color} />
+                        <TabBarIcon name="money" color={color} />
                     ),
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 20,
+                        fontWeight: "bold",
+                    },
                 }}
             />
         </Tabs>
