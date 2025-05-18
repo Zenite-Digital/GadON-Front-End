@@ -1,5 +1,6 @@
 export { default as AddChat } from "./AddChat";
 export { default as Casa } from "./Casa";
+export { default as Chat } from "./Chat";
 export { default as ChevronBaixo } from "./ChevronBaixo";
 export { default as ChevronCima } from "./ChevronCima";
 export { default as ChevronDireita } from "./ChevronDireita";
