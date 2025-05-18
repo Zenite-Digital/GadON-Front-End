@@ -7,6 +7,8 @@ import Colors from "@constants/Colors";
 import { useColorScheme } from "@hooks/useColorScheme";
 import { useClientOnlyValue } from "@hooks/useClientOnlyValue";
 
+import "../../../global.css";
+
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
     name: React.ComponentProps<typeof FontAwesome>["name"];

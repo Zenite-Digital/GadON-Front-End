@@ -1,27 +1,42 @@
 {
-    "extends": "expo/tsconfig.base",
-    "compilerOptions": {
-        "target": "ESNext",
-        "module": "ESNext",
-        "allowJs": true,
-        "jsx": "react-native",
-        "noEmit": true,
-        "isolatedModules": true,
-        "strict": true,
-        "moduleResolution": "bundler",
-        "resolveJsonModule": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "baseUrl": ".",
-        "paths": {
-            "@components/*": ["./src/components/*"],
-            "@assets/*": ["./assets/*"],
-            "@icons/*": ["./assets/icons/*"],
-
-            "@constants/*": ["./src/constants/*"],
-            "@hooks/*": ["./src/hooks/*"]
-        }
-    },
-    "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "allowJs": true,
+    "jsx": "react-native",
+    "noEmit": true,
+    "isolatedModules": true,
+    "strict": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@assets/*": [
+        "./assets/*"
+      ],
+      "@icons/*": [
+        "./assets/icons/*"
+      ],
+      "@constants/*": [
+        "./src/constants/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "nativewind-env.d.ts"
+  ]
 }
