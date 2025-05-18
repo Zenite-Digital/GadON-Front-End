@@ -12,7 +12,7 @@ const TemplateComponent: React.FC<TemplateProps> = ({
     return (
         <TouchableOpacity
             activeOpacity={0.75}
-            className="w-[200px] bg-[#4545e0] h-[52px] rounded-[10px] justify-center items-center"
+            className="w-[200px] bg-brand-main h-[52px] rounded-[10px] justify-center items-center"
         >
             <Text>{text}</Text>
         </TouchableOpacity>
