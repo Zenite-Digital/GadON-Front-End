@@ -21,7 +21,7 @@ type ButtonProps = PressableProps & {
     | "light"
     | "dark";
   fullWidth?: boolean;
-  variant?: "outline" | "solid";
+  variant?: "outline" | "solid" | "text";
   text?: string;
   slots?: {
     text?: {
