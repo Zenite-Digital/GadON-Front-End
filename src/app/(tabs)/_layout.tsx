@@ -27,6 +27,10 @@ export default function TabLayout() {
           justifyContent: "center",
           height: 50,
         },
+        sceneStyle: {
+          backgroundColor: Colors.light.background,
+          paddingBottom: 18,
+        },
       }}
     >
       <Tabs.Screen
