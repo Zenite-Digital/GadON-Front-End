@@ -38,7 +38,7 @@ export default function TabDashboard() {
 
             <View className="flex-row justify-start mb-4">
                 <TouchableOpacity className="py-2 px-4 bg-[#105d10] rounded-full mr-2">
-                    <Text className="text-white font-bold">Geral</Text>
+                    <Text className="text-white font-bold font-inter">Geral</Text>
                 </TouchableOpacity>
                 <TouchableOpacity className="py-2 px-4 bg-gray-100 rounded-full  mr-2">
                     <Text className="text-sm">Ganhos</Text>
