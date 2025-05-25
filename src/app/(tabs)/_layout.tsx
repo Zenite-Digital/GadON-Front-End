@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
 
 import { useClientOnlyValue } from "@hooks/useClientOnlyValue";
 
@@ -8,8 +8,10 @@ import TabBarIcon from "@components/tab-bar-icon";
 import { Casa, Vaca, Chat } from "@assets/icons";
 import FontAwesomeIcon from "@components/font-awesome-icon";
 import Colors from "@constants/Colors";
+import Button from "@components/button";
 
 export default function TabLayout() {
+  const router = useRouter();
   const getIconActive = useCallback((activeColor: string) => {
     return activeColor === "main";
   }, []);
@@ -49,7 +51,12 @@ export default function TabLayout() {
             fontSize: 20,
             fontWeight: 600,
           },
-          headerLeft: () => <FontAwesomeIcon name="bars" />,
+          headerLeft: () => (
+            <FontAwesomeIcon
+              name="bars"
+              onPress={() => router.push("/cadastro-perfil")}
+            />
+          ),
           headerLeftContainerStyle: {
             maxWidth: 70,
             width: 70,
