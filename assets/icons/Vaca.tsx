@@ -14,10 +14,11 @@ const SvgComponent = ({
   ...props
 }: SvgComponentProps) => {
   const size = iconSize[iconSizeProp || "sm"] || iconSize.md;
+  console.debug(stroke);
   return (
     <Svg
-      width="28px"
-      height="28px"
+      width={size}
+      height={size}
       viewBox="0 0 36 36"
       fill="none"
       stroke={stroke}
