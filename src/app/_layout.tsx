@@ -7,10 +7,8 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import "../../global.css";
 
-
-import { useColorScheme } from '@hooks/useColorScheme';
-import { green } from 'react-native-reanimated/lib/typescript/Colors';
-
+import { useColorScheme } from "@hooks/useColorScheme";
+import { green } from "react-native-reanimated/lib/typescript/Colors";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -55,16 +53,12 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-        <Stack.Screen 
-          name="cadastro-perfil" 
-          options={{ title: 'Cadastro', 
-            headerTitleAlign: 'center', 
-            headerStyle: {
-              borderBottomColor: '#005E24', 
-            },
-          }} />
-
+        <Stack.Screen
+          name="cadastro-perfil"
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );
