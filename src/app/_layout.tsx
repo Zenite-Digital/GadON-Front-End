@@ -64,8 +64,17 @@ function RootLayoutNav() {
               borderBottomColor: '#005E24', 
             },
           }} />
+        <Stack.Screen 
+          name="tela-propriedade" 
+          options={{ title: 'Minha propriedade', 
+            headerTitleAlign: 'center', 
+            headerStyle: {
+              borderBottomColor: '#005E24', 
+            },
+          }} />
 
       </Stack>
+      
     </ThemeProvider>
   );
 }

@@ -1,6 +1,7 @@
 import { ChevronDireita } from "@assets/icons";
 import Card from "@components/card";
 import Colors from "@constants/Colors";
+import { router } from "expo-router";
 import React from "react";
 import { View, Text, FlatList, TouchableHighlight } from "react-native";
 type Propertie = {
@@ -38,6 +39,8 @@ const Properties = ({ data }: PropertiesProps) => {
                 title={item.nome}
                 imageSource={item.imagem}
                 key={`${item.id}-${index}`}
+                pathname={item.id}
+                
               />
             </TouchableHighlight>
           );
