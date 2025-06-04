@@ -8,6 +8,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { buttonColors } from "./styles";
+import FontAwesomeIcon from "@components/font-awesome-icon";
 
 type ButtonProps = PressableProps & {
   color?:
@@ -29,6 +30,7 @@ type ButtonProps = PressableProps & {
     };
   };
   className?: string;
+  Icon?: React.ReactNode;
 };
 
 const Button = ({
@@ -36,6 +38,7 @@ const Button = ({
   color = "light",
   variant = "solid",
   text,
+  Icon,
   slots,
   fullWidth = false,
   ...props
@@ -45,7 +48,7 @@ const Button = ({
   return (
     <Pressable
       className={cn(
-        "min-w-2 p-2 rounded-lg items-center",
+        "flex flwx-rowmin-w-2 p-2 rounded-lg items-center",
         theme.button,
         !fullWidth ? "self-start" : "w-full",
         className
@@ -56,6 +59,8 @@ const Button = ({
       {...props}
     >
       {({ pressed }) => (
+        <>
+        {Icon}
         <Text
           className={cn(
             pressed ? theme.text.pressed : theme.text.default,
@@ -63,7 +68,7 @@ const Button = ({
           )}
         >
           {text}
-        </Text>
+        </Text></>
       )}
     </Pressable>
   );
