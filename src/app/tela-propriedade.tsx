@@ -1,8 +1,10 @@
+import { Casa, Lixo } from "@assets/icons";
 import Button from "@components/button";
 import Card from "@components/card";
 import FontAwesomeIcon from "@components/font-awesome-icon";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
+import { Alert } from "react-native";
 import {
     Dimensions,
     Image,
@@ -19,6 +21,7 @@ export default function ProprietiesScreen() {
     const params = useLocalSearchParams<{ id?: string }>();
 
     console.debug(params);
+
     return (
 
         <ScrollView style={styles.container}>
@@ -27,49 +30,70 @@ export default function ProprietiesScreen() {
                 style={styles.Image}
             />
 
-            <span
-                style = {styles.infoCard}
+            <View
+                className="flex flex-row items-center justify-between rounded-lg p-4 mb-4 bg-neutral-100 overflow-hidden "
             >
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <FontAwesomeIcon name="home" size={24} color="#000" />
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', marginLeft: 15 }}>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Fazenda {params.id}</Text>
-                    <Text style={{ fontSize: 14, color: '#555' }}>placeholder text</Text>
-                </div>
-            </span>
-            
+                <View className="flex flex-row items-center justify-center mr-4">
+                    <Casa
+                        stroke="#000000"
+                        iconSize="md"
+                        className="mr-2"/>
+                </View>
+                <View className="w-full flex flex-col flex-wrap">
+                    <Text className="flex flex-col font-bold">Nome Propriedade {params.id}</Text>
+                    <Text className="text-wrap flex flex-col flex-wrap">tamanho da área · qtd animais · qtd pessoas </Text>
+                </View>
+            </View>
+
 
             <Button
                 fullWidth={true}
                 text="Visão Geral"
                 variant="solid"
-                style= {styles.botao}
+                className="bg-neutral-200 color-black flex align-middle items-center justify-center h-16 mb-4"
 
             ></Button>
-                        <Button
+            <Button
                 fullWidth={true}
                 text="Finanças"
                 variant="solid"
-                style= {styles.botao}
+                className="bg-neutral-200 color-black flex align-middle items-center justify-center h-16 mb-4"
 
             ></Button>
-                        <Button
+            <Button
                 fullWidth={true}
                 text="Lotes"
                 variant="solid"
-                style= {styles.botao}
+                className="bg-neutral-200 color-black flex align-middle items-center justify-center h-16"
 
             ></Button>
 
-            <span style={styles.espaco}></span>
+            <View style={styles.espaco}></View>
             <Button
-                variant="solid"
-                style={{
-                    ...styles.botaoExcluir,
-                    backgroundColor: "#DC3545",
+                variant= "outline"
+                className="bg-red-500 rounded-3xl   flex align-middle h-5 items-center justify-center self-center w-full p-8"
+                Icon={<Lixo stroke= "#ffffff" iconSize="md" />}
+                onPress={() => {
+                    Alert.alert(
+                        "Excluir Propriedade",
+                        "Você tem certeza que deseja excluir esta propriedade?",
+                        [
+                            {
+                                text: "Cancelar",
+                                style: "cancel",
+                            },
+                            {
+                                text: "Excluir",
+                                style: "destructive",
+                                onPress: () => {
+                                    // Aqui você pode adicionar a lógica para excluir a propriedade
+                                    console.log("Propriedade excluída");
+                                },
+                            },
+                        ],
+                        { cancelable: true }
+                    );
                 }}
-                Icon = {<FontAwesomeIcon name="trash"/>}
             ></Button>
         </ScrollView>
 
@@ -94,20 +118,20 @@ const styles = StyleSheet.create({
     },
 
     Image: {
-        width: Dimensions.get('window').width -12,
-        height: Dimensions.get('window').width/1.5,
+        width: Dimensions.get('window').width - 12,
+        height: Dimensions.get('window').width / 1.5,
         resizeMode: 'contain',
         justifyContent: 'center',
         alignItems: 'center',
         display: "flex",
         alignSelf: "center",
-        
+
     },
-    espaco:{
+    espaco: {
         marginTop: 50,
     },
 
-    botaoExcluir:{
+    botaoExcluir: {
         display: "flex",
         width: 90,
         height: 50,
@@ -120,7 +144,7 @@ const styles = StyleSheet.create({
         borderRadius: 12,
     },
 
-    infoCard:{
+    infoCard: {
         width: Dimensions.get('window').width - 55,
         backgroundColor: "#f5f5f5",
         borderRadius: 12,
