@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Dimensions } from
 const { width } = Dimensions.get("window");
 const GAP = 8;
 const PADDING = 16;
-const CARD_WIDTH = (width - PADDING * 2 - GAP) / 2;
+const CARD_WIDTH = width * 0.85; 
 
 const lotes = [
   {
@@ -47,7 +47,11 @@ export default function VisaoGeral() {
     <View style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>Visão Geral</Text>
-        <View style={styles.carouselRow}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.carouselRow}
+        >
           <View style={styles.card}>
             <Text style={styles.cardLabel}>Rentabilidade</Text>
             <Text style={styles.cardValue}>R$27.950,18</Text>
@@ -58,7 +62,7 @@ export default function VisaoGeral() {
             <Text style={styles.cardValue}>R$5.718,00</Text>
             <Text style={styles.cardSub}>Aumento de 17%</Text>
           </View>
-        </View>
+        </ScrollView>
         <View style={styles.tabsRow}>
           {["Geral", "Rentáveis", "Não Rentáveis"].map((tab) => (
             <TouchableOpacity
@@ -130,9 +134,10 @@ const styles = StyleSheet.create({
   },
   carouselRow: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    gap: 8,
     marginBottom: 16,
-    gap: GAP,
+    paddingRight: 8,
+
   },
   card: {
     width: CARD_WIDTH,
@@ -142,10 +147,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
     elevation: 2,
+    maxHeight: 150,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 4,
+    marginRight: 8,
   },
   cardLabel: {
     fontSize: 12,
@@ -186,6 +193,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 8,
     marginBottom: 8,
+    justifyContent: "center",
+    alignItems: "center"
   },
   statusRentavel: {
     backgroundColor: "#e6f4ea",
