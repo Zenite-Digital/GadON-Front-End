@@ -88,7 +88,7 @@ export default function LoginScreen() {
                 )}
 
                 <TouchableOpacity
-                    className="bg-brand-main rounded-lg p-4 items-center"
+                    className="bg-black rounded-lg p-4 items-center"
                     onPress={handleContinue}
                 >
                     <Text className="text-white text-base font-bold">
