@@ -16,7 +16,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)",
+  initialRouteName: "tela-login",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -53,14 +53,20 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={DefaultTheme}>
       <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} redirect={true} />
+        <Stack.Screen name="tela-login" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-
-        <Stack.Screen
-          name="cadastro-perfil"
-          options={{
-            headerShown: false,
-          }}
-        />
+        <Stack.Screen 
+          name="cadastro-perfil" 
+          options={{ 
+            title: 'Cadastro',
+            headerShown: true, 
+            headerTitleAlign: 'center', 
+            headerStyle: {
+              borderBottomColor: '#005E24', 
+            },
+          }} />
+        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
     </ThemeProvider>
   );
