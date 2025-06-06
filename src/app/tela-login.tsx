@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { Linking, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Linking, ScrollView, Text, TextInput, TouchableOpacity, View, Image } from "react-native";
 import { useRouter } from "expo-router"; // Importar o router para navegação
 
 export default function LoginScreen() {
@@ -36,7 +36,11 @@ export default function LoginScreen() {
     return (
         <ScrollView className="flex-1 bg-white px-6 justify-center">
             <View className="items-center mb-10 pt-20">
-                <Text className="text-5xl font-bold text-black">GadON</Text>
+                <Image
+                    source={require('../../assets/images/logo.png')}
+                    style={{ width: 360, height: 120 }}
+                    resizeMode="contain"
+                />
             </View>
 
             <View className="items-center mb-8">
@@ -84,7 +88,7 @@ export default function LoginScreen() {
                 )}
 
                 <TouchableOpacity
-                    className="bg-brand-main rounded-lg p-4 items-center"
+                    className="bg-black rounded-lg p-4 items-center"
                     onPress={handleContinue}
                 >
                     <Text className="text-white text-base font-bold">
