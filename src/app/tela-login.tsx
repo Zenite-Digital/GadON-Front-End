@@ -1,24 +1,32 @@
 import React, { useState } from "react";
-
 import { Ionicons } from "@expo/vector-icons";
 import { Linking, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useRouter } from "expo-router"; // Importar o router para navegação
 
 export default function LoginScreen() {
+    const router = useRouter(); // Inicializar o router
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [isExistingUser, setIsExistingUser] = useState(false);
 
     const handleContinue = () => {
-        setIsExistingUser(true);
+        // Se for existente, vai pra tela inicial, senão mostra campo de senha
+        if (isExistingUser) {
+            router.replace("/(tabs)"); // Navega para a tab index
+        } else {
+            setIsExistingUser(true);
+        }
     };
 
     const handleGoogleLogin = () => {
         console.log("Login com Google");
+        router.replace("/(tabs)"); // Após login, navega para a tab index
     };
 
     const handleAppleLogin = () => {
         console.log("Login com Apple");
+        router.replace("/(tabs)"); // Após login, navega para a tab index
     };
 
     const openPrivacyPolicy = () => {
@@ -26,8 +34,8 @@ export default function LoginScreen() {
     };
 
     return (
-        <ScrollView className="'flex-1 bg-background px-6 justify-center">
-            <View className="items-center mb-10">
+        <ScrollView className="flex-1 bg-white px-6 justify-center">
+            <View className="items-center mb-10 pt-20">
                 <Text className="text-5xl font-bold text-black">GadON</Text>
             </View>
 
@@ -76,7 +84,7 @@ export default function LoginScreen() {
                 )}
 
                 <TouchableOpacity
-                    className="bg-black rounded-lg p-4 items-center"
+                    className="bg-brand-main rounded-lg p-4 items-center"
                     onPress={handleContinue}
                 >
                     <Text className="text-white text-base font-bold">
@@ -87,7 +95,7 @@ export default function LoginScreen() {
 
             <View className="flex-row items-center mb-6">
                 <View className="flex-1 h-px bg-gray-300" />
-                <Text className="mx-4 color-slate-600 text-sm">ou</Text>
+                <Text className="mx-4 text-slate-600 text-sm">ou</Text>
                 <View className="flex-1 h-px bg-gray-300" />
             </View>
 
@@ -113,8 +121,8 @@ export default function LoginScreen() {
                 </TouchableOpacity>
             </View>
 
-            <View className="items-center">
-                <Text className="text-center text-xs color-gray-400 leading-5">
+            <View className="items-center mb-10">
+                <Text className="text-center text-xs text-gray-500 leading-5">
                     Ao continuar, você concorda com os{" "}
                     <Text
                         className="text-black underline"
