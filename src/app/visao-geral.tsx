@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Dimensions } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Dimensions, Image } from "react-native";
 
 const { width } = Dimensions.get("window");
 const GAP = 8;
 const PADDING = 16;
-const CARD_WIDTH = width * 0.85; 
+const CARD_WIDTH = width * 0.60;
 
 const lotes = [
   {
@@ -45,7 +45,10 @@ export default function VisaoGeral() {
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView
+        contentContainerStyle={[styles.container, { flexGrow: 1, paddingBottom: 120 }]}
+        keyboardShouldPersistTaps="handled"
+      >
         <Text style={styles.title}>Visão Geral</Text>
         <ScrollView
           horizontal
@@ -73,10 +76,12 @@ export default function VisaoGeral() {
                 filtro === tab && styles.tabButtonActive,
               ]}
             >
-              <Text style={[
-                styles.tabButtonText,
-                filtro === tab && styles.tabButtonTextActive,
-              ]}>
+              <Text
+                style={[
+                  styles.tabButtonText,
+                  filtro === tab && styles.tabButtonTextActive,
+                ]}
+              >
                 {tab}
               </Text>
             </TouchableOpacity>
@@ -86,10 +91,15 @@ export default function VisaoGeral() {
           <Text style={styles.statusRentavel}>Rentáveis: {rentaveis}</Text>
           <Text style={styles.statusNaoRentavel}>Não Rentáveis: {naoRentaveis}</Text>
         </View>
-        <View>
+        {/* Lista de lotes ocupa o espaço restante */}
+        <View style={{ flex: 1 }}>
           {lotesFiltrados.map((lote, idx) => (
             <View key={idx} style={styles.loteCard}>
-              <Text style={styles.loteIcon}>🏡</Text>
+              <Image
+                source={require("../../assets/images/celeiro.png")}
+                style={{ width: 28, height: 20, marginRight: 10 }}
+                resizeMode="contain"
+              />
               <View style={{ flex: 1 }}>
                 <Text style={styles.loteFazenda}>{lote.fazenda}</Text>
                 <Text style={styles.loteNumero}>Lote: {lote.numero}</Text>
@@ -100,15 +110,15 @@ export default function VisaoGeral() {
                   </Text>
                 </Text>
               </View>
-              <View style={[
-                styles.statusDot,
-                { backgroundColor: lote.rentavel ? "#22c55e" : "#ef4444" }
-              ]} />
+              <View
+                style={[
+                  styles.statusDot,
+                  { backgroundColor: lote.rentavel ? "#B9E4C9" : "#ef4444" },
+                ]}
+              />
             </View>
           ))}
         </View>
-        {/* Espaço extra para o botão não sobrepor conteúdo */}
-        <View style={{ height: 80 }} />
       </ScrollView>
       <View style={styles.fixedButtonContainer}>
         <TouchableOpacity style={styles.exportButton}>
@@ -134,9 +144,9 @@ const styles = StyleSheet.create({
   },
   carouselRow: {
     flexDirection: "row",
-    gap: 8,
-    marginBottom: 16,
-    paddingRight: 8,
+    gap: 6,
+    marginBottom: 8,
+    paddingRight: 0,
 
   },
   card: {
@@ -197,8 +207,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   statusRentavel: {
-    backgroundColor: "#e6f4ea",
-    color: "#006d3c",
+    backgroundColor: "#B9E4C9",
+    color: "#000",
     borderRadius: 12,
     paddingVertical: 2,
     paddingHorizontal: 10,
@@ -206,8 +216,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   statusNaoRentavel: {
-    backgroundColor: "#fde7e7",
-    color: "#b91c1c",
+    backgroundColor: "#F0A9B0",
+    color: "#000",
     borderRadius: 12,
     paddingVertical: 2,
     paddingHorizontal: 10,
