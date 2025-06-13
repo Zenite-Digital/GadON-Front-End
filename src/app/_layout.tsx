@@ -63,11 +63,36 @@ function RootLayoutNav() {
             headerShown: true, 
             headerTitleAlign: 'center', 
             headerStyle: {
-              borderBottomColor: '#005E24', 
+            borderBottomColor: '#005E24', 
             },
           }} />
+
+        <Stack.Screen 
+          name="tela-propriedade" 
+          
+          options={{ title: 'Minha propriedade', 
+            headerTitleAlign: 'center', 
+            headerRight: () => (
+              <FontAwesome 
+                name="gear" 
+                size={24} 
+                color="#000" 
+                className="p-2 mr-2"
+                onPress={() => console.log('Menu pressed')} // Replace with your navigation logic
+              />
+            ),
+            headerStyle: {
+            borderBottomColor: '#005E24', 
+            
+            },
+          }} />
+
+
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+
       </Stack>
+      
     </ThemeProvider>
   );
 }
+0

@@ -1,5 +1,6 @@
 import Button from "@components/button";
 import { cn } from "@utils/cn";
+import { router } from "expo-router";
 import React, { useMemo } from "react";
 import { View, Image, Text, SafeAreaView } from "react-native";
 
@@ -7,6 +8,7 @@ type CardsProps = {
   imageSource?: string;
   title?: string;
   description?: string;
+  pathname: number;
   slots?: {
     image?: {
       className?: string;
@@ -20,7 +22,7 @@ type CardsProps = {
   };
 };
 
-const Card = ({ title, description, imageSource, slots }: CardsProps) => {
+const Card = ({ title, description, imageSource, slots, pathname }: CardsProps) => {
   const image = useMemo(
     () =>
       imageSource
@@ -66,6 +68,15 @@ const Card = ({ title, description, imageSource, slots }: CardsProps) => {
             color="main"
             fullWidth
             text="Acessar"
+            onPress={() => {
+              router.push({
+                pathname: "/tela-propriedade",
+                params: {
+                  id: pathname,
+                  propriedade: title,
+                }
+              });
+            }}
           />
         </View>
       </View>
