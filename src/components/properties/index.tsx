@@ -24,11 +24,8 @@ const Properties = ({ data }: PropertiesProps) => {
           <ChevronDireita iconSize="sm" />
         </View>
       </View>
-      <FlatList
-        numColumns={2}
-        data={data}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item, index }) => {
+      <View className="grid grid-cols-2 font-sans">
+        {data?.map((item, index) => {
           return (
             <TouchableHighlight
               className="flex-1 m-2 p-2 bg-white rounded-2xl active:bg-outros-hover"
@@ -44,8 +41,8 @@ const Properties = ({ data }: PropertiesProps) => {
               />
             </TouchableHighlight>
           );
-        }}
-      />
+        })}
+      </View>
     </View>
   );
 };

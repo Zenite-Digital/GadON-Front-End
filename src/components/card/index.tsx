@@ -46,7 +46,7 @@ const Card = ({ title, description, imageSource, slots, pathname }: CardsProps) 
             <Text
               numberOfLines={2}
               className={cn(
-                "text-sm text-gray-500",
+                "text-sm text-gray-500 ",
                 slots?.description?.className
               )}
             >

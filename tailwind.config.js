@@ -13,6 +13,11 @@ module.exports = {
       colors: {
         ...colors,
       },
+      fontFamily: {
+        sans: ["InterRegular", "Arial", "sans-serif"],
+        "inter-regular": ["InterRegular", "sans-serif"],
+        "inter-medium": ["InterMedium", "sans-serif"],
+      },
     },
   },
   plugins: [],
