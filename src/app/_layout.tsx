@@ -61,7 +61,7 @@ function RootLayoutNav() {
           options={{ title: 'Cadastro', 
             headerTitleAlign: 'center', 
             headerStyle: {
-              borderBottomColor: '#005E24', 
+            borderBottomColor: '#005E24', 
             },
           }} />
         <Stack.Screen 

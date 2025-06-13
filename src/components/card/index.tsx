@@ -73,6 +73,7 @@ const Card = ({ title, description, imageSource, slots, pathname }: CardsProps) 
                 pathname: "/tela-propriedade",
                 params: {
                   id: pathname,
+                  propriedade: title,
                 }
               });
             }}

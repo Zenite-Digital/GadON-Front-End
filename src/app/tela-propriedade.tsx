@@ -18,7 +18,7 @@ import {
 
 export default function ProprietiesScreen() {
 
-    const params = useLocalSearchParams<{ id?: string }>();
+    const params = useLocalSearchParams<{ id?: string, propriedade?: string }>();
 
     console.debug(params);
 
@@ -40,7 +40,7 @@ export default function ProprietiesScreen() {
                         className="mr-2"/>
                 </View>
                 <View className="w-full flex flex-col flex-wrap">
-                    <Text className="flex flex-col font-bold">Nome Propriedade {params.id}</Text>
+                    <Text className="flex flex-col font-bold">{params.propriedade} {params.id}</Text>
                     <Text className="text-wrap flex flex-col flex-wrap">tamanho da área · qtd animais · qtd pessoas </Text>
                 </View>
             </View>
