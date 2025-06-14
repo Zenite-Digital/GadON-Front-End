@@ -1,34 +1,19 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Dimensions, Image } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, Image, Dimensions, FlatList } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 const { width } = Dimensions.get("window");
-const GAP = 8;
-const PADDING = 16;
-const CARD_WIDTH = width * 0.60;
 
 const lotes = [
-  {
-    fazenda: "Fazenda Santa Luzia",
-    numero: 1,
-    animais: 100,
-    area: 15,
-    rentavel: true,
-  },
-  {
-    fazenda: "Fazenda Santa Luzia",
-    numero: 2,
-    animais: 175,
-    area: 17,
-    rentavel: false,
-  },
-  {
-    fazenda: "Fazenda Santa Luzia",
-    numero: 3,
-    animais: 250,
-    area: 25,
-    rentavel: false,
-  },
-  // Adicione mais lotes conforme necessário
+  { fazenda: "Fazenda Santa Luzia", numero: 1, animais: 100, area: 15, rentavel: true },
+  { fazenda: "Fazenda Santa Luzia", numero: 2, animais: 175, area: 17, rentavel: false },
+  { fazenda: "Fazenda Santa Luzia", numero: 3, animais: 250, area: 25, rentavel: false },
+];
+
+const carrosselInfo = [
+  { titulo: "Rentabilidade", valor: "R$27.950,18", subtitulo: "Nos últimos 30 dias" },
+  { titulo: "Custos", valor: "R$5.718,00", subtitulo: "Aumento de 17%" },
+  { titulo: "Animais", valor: "525", subtitulo: "Total na propriedade" },
 ];
 
 export default function VisaoGeral() {
@@ -44,235 +29,105 @@ export default function VisaoGeral() {
   const naoRentaveis = lotes.length - rentaveis;
 
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView
-        contentContainerStyle={[styles.container, { flexGrow: 1, paddingBottom: 120 }]}
-        keyboardShouldPersistTaps="handled"
-      >
-        <Text style={styles.title}>Visão Geral</Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.carouselRow}
-        >
-          <View style={styles.card}>
-            <Text style={styles.cardLabel}>Rentabilidade</Text>
-            <Text style={styles.cardValue}>R$27.950,18</Text>
-            <Text style={styles.cardSub}>Nos últimos 30 dias</Text>
+    <View className="flex-1 bg-white">
+      {/* Header */}
+      <View className="flex-row items-center justify-between px-3 pt-4 pb-2 border-b border-b-[#eee] bg-white">
+        <TouchableOpacity onPress={() => {/* navegação para trás */ }}>
+          <Ionicons name="arrow-back" size={24} color="#222" />
+        </TouchableOpacity>
+        <Text className="font-bold text-[18px] text-[#222]">Visão Geral</Text>
+        <TouchableOpacity onPress={() => {/* ação de edição */ }}>
+          <Ionicons name="settings-sharp" size={24} color="#222" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Carrossel */}
+      <FlatList
+        data={carrosselInfo}
+        keyExtractor={(_, idx) => idx.toString()}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={{ marginTop: 4, marginBottom: 0 }}
+        contentContainerStyle={{ gap: 10, paddingHorizontal: 10 }}
+        renderItem={({ item }) => (
+          <View style={{
+            width: width * 0.42,
+            height: 90,
+          }} className="bg-[#f6f6f6] rounded-xl p-3 justify-center items-start shadow">
+            <Text className="font-bold text-[13px] text-[#222] mb-[2px]">{item.titulo}</Text>
+            <Text className="font-bold text-[22px] mb-[2px]">{item.valor}</Text>
+            <Text className="text-[12px] text-[#888]">{item.subtitulo}</Text>
           </View>
-          <View style={styles.card}>
-            <Text style={styles.cardLabel}>Custos</Text>
-            <Text style={styles.cardValue}>R$5.718,00</Text>
-            <Text style={styles.cardSub}>Aumento de 17%</Text>
-          </View>
-        </ScrollView>
-        <View style={styles.tabsRow}>
-          {["Geral", "Rentáveis", "Não Rentáveis"].map((tab) => (
-            <TouchableOpacity
-              key={tab}
-              onPress={() => setFiltro(tab as any)}
-              style={[
-                styles.tabButton,
-                filtro === tab && styles.tabButtonActive,
-              ]}
-            >
-              <Text
-                style={[
-                  styles.tabButtonText,
-                  filtro === tab && styles.tabButtonTextActive,
-                ]}
-              >
-                {tab}
-              </Text>
-            </TouchableOpacity>
-          ))}
+        )}
+      />
+
+      {/* Filtros */}
+      <View className="flex-row gap-2 mt-1 mb-2 px-3">
+        {["Geral", "Rentáveis", "Não Rentáveis"].map((tab) => (
+          <TouchableOpacity
+            key={tab}
+            onPress={() => setFiltro(tab as any)}
+            className={`flex-1 p-2 rounded-full items-center ${filtro === tab ? "bg-[#014421]" : "bg-[#f0f0f0]"}`}
+          >
+            <Text className={`${filtro === tab ? "text-white font-bold" : "text-[#222] font-normal"}`}>
+              {tab}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* Caixa de seleção de lotes (dropdown visual) */}
+      <View className="flex-row items-center justify-between bg-[#f6f6f6] rounded-lg p-3 mx-3 mb-2">
+        <Text className="text-[#666]">Lotes</Text>
+        <Ionicons name="chevron-down" size={20} color="#666" />
+      </View>
+
+      {/* Cards de resumo */}
+      <View className="flex-row gap-2 justify-start items-center mb-2 mx-3">
+        <View className="bg-[#7fc89f] rounded-full py-1 px-3">
+          <Text className="text-black font-bold text-[13px]">Rentáveis: {rentaveis}</Text>
         </View>
-        <View style={styles.statusRow}>
-          <Text style={styles.statusRentavel}>Rentáveis: {rentaveis}</Text>
-          <Text style={styles.statusNaoRentavel}>Não Rentáveis: {naoRentaveis}</Text>
+        <View className="bg-[#f8bcbc] rounded-full py-1 px-3">
+          <Text className="text-black font-bold text-[13px]">Não Rentáveis: {naoRentaveis}</Text>
         </View>
-        {/* Lista de lotes ocupa o espaço restante */}
-        <View style={{ flex: 1 }}>
-          {lotesFiltrados.map((lote, idx) => (
-            <View key={idx} style={styles.loteCard}>
-              <Image
-                source={require("../../assets/images/celeiro.png")}
-                style={{ width: 28, height: 20, marginRight: 10 }}
-                resizeMode="contain"
-              />
-              <View style={{ flex: 1 }}>
-                <Text style={styles.loteFazenda}>{lote.fazenda}</Text>
-                <Text style={styles.loteNumero}>Lote: {lote.numero}</Text>
-                <Text style={styles.loteInfo}>
-                  Animais: {lote.animais} · Área: {lote.area} alq.p ·{" "}
-                  <Text style={{ color: lote.rentavel ? "#006d3c" : "#b91c1c" }}>
-                    {lote.rentavel ? "Rentável" : "Não Rentável"}
-                  </Text>
+      </View>
+
+      {/* Lista de lotes */}
+      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+        {lotesFiltrados.map((lote, idx) => (
+          <View key={idx} className="bg-[#f6f6f6] rounded-xl p-3 mb-2 flex-row items-center mx-3 gap-3">
+            <Image
+              source={require("../../assets/images/celeiro.png")}
+              style={{ width: 28, height: 20, marginRight: 10 }}
+              resizeMode="contain"
+            />
+            <View className="flex-1">
+              <Text className="font-bold">{lote.fazenda}</Text>
+              <Text className="text-[14px]">Lote: {lote.numero}</Text>
+              <Text className="text-[12px] text-[#666]">
+                Animais: {lote.animais} · Área: {lote.area} alq.p ·{" "}
+                <Text className={lote.rentavel ? "text-[#006d3c]" : "text-[#b91c1c]"}>
+                  {lote.rentavel ? "Rentável" : "Não Rentável"}
                 </Text>
-              </View>
-              <View
-                style={[
-                  styles.statusDot,
-                  { backgroundColor: lote.rentavel ? "#B9E4C9" : "#ef4444" },
-                ]}
-              />
+              </Text>
             </View>
-          ))}
-        </View>
+            <View
+              className="w-4 h-4 rounded-full ml-2"
+              style={{ backgroundColor: lote.rentavel ? "#2ecc40" : "#ef4444" }}
+            />
+          </View>
+        ))}
       </ScrollView>
-      <View style={styles.fixedButtonContainer}>
-        <TouchableOpacity style={styles.exportButton}>
-          <Text style={styles.exportButtonText}>Exportar relatório</Text>
+
+      {/* Footer */}
+      <View className="absolute left-0 right-0 bottom-0 bg-white p-4 border-t border-t-[#eee]">
+        <TouchableOpacity
+          className="w-full bg-[#006d3c] p-3.5 rounded-lg items-center"
+          onPress={() => {/* lógica para exportar relatório */ }}
+        >
+          <Text className="text-white font-bold text-[16px]">Exportar relatório</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    backgroundColor: "#fff",
-    alignItems: "stretch",
-    flexGrow: 1,
-  },
-  title: {
-    textAlign: "center",
-    fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 12,
-  },
-  carouselRow: {
-    flexDirection: "row",
-    gap: 6,
-    marginBottom: 8,
-    paddingRight: 0,
-
-  },
-  card: {
-    width: CARD_WIDTH,
-    backgroundColor: "#f6f6f6",
-    padding: 16,
-    borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "flex-start",
-    elevation: 2,
-    maxHeight: 150,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    marginRight: 8,
-  },
-  cardLabel: {
-    fontSize: 12,
-    color: "#888",
-  },
-  cardValue: {
-    fontWeight: "bold",
-    fontSize: 22,
-  },
-  cardSub: {
-    fontSize: 12,
-    color: "#888",
-  },
-  tabsRow: {
-    flexDirection: "row",
-    gap: 8,
-    marginBottom: 12,
-  },
-  tabButton: {
-    flex: 1,
-    padding: 8,
-    borderRadius: 20,
-    backgroundColor: "#f0f0f0",
-    alignItems: "center",
-  },
-  tabButtonActive: {
-    backgroundColor: "#006d3c",
-  },
-  tabButtonText: {
-    color: "#222",
-    fontWeight: "normal",
-  },
-  tabButtonTextActive: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-  statusRow: {
-    flexDirection: "row",
-    gap: 8,
-    marginBottom: 8,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  statusRentavel: {
-    backgroundColor: "#B9E4C9",
-    color: "#000",
-    borderRadius: 12,
-    paddingVertical: 2,
-    paddingHorizontal: 10,
-    fontSize: 12,
-    overflow: "hidden",
-  },
-  statusNaoRentavel: {
-    backgroundColor: "#F0A9B0",
-    color: "#000",
-    borderRadius: 12,
-    paddingVertical: 2,
-    paddingHorizontal: 10,
-    fontSize: 12,
-    overflow: "hidden",
-  },
-  loteCard: {
-    backgroundColor: "#f6f6f6",
-    borderRadius: 10,
-    padding: 12,
-    marginBottom: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
-  loteIcon: {
-    fontSize: 22,
-    marginRight: 8,
-  },
-  loteFazenda: {
-    fontWeight: "bold",
-  },
-  loteNumero: {
-    fontSize: 14,
-  },
-  loteInfo: {
-    fontSize: 12,
-    color: "#666",
-  },
-  statusDot: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    marginLeft: 8,
-  },
-  fixedButtonContainer: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "#fff",
-    padding: 16,
-    borderTopWidth: 1,
-    borderTopColor: "#eee",
-  },
-  exportButton: {
-    width: "100%",
-    backgroundColor: "#006d3c",
-    padding: 14,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  exportButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-});
