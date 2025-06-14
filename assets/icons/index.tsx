@@ -1,0 +1,12 @@
+export { default as AddChat } from "./AddChat";
+export { default as Casa } from "./Casa";
+export { default as Chat } from "./Chat";
+export { default as ChevronBaixo } from "./ChevronBaixo";
+export { default as ChevronCima } from "./ChevronCima";
+export { default as ChevronDireita } from "./ChevronDireita";
+export { default as ChevronEsquerda } from "./ChevronEsquerda";
+export { default as Edit } from "./Edit";
+export { default as Lixo } from "./Lixo";
+export { default as Sino } from "./Sino";
+export { default as Usuario } from "./Usuario";
+export { default as Vaca } from "./Vaca";
