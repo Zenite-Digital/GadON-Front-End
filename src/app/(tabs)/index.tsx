@@ -3,7 +3,6 @@ import { View } from "react-native";
 
 import PropertiesCards from "@constants/mock-data/PropertiesCards";
 import EditProfileScreen from '../atualizar-perfil';
-import EditScreenInfo from '@components/edit-screen-info/EditScreenInfo';
 
 export default function TabOneScreen() {
   return (
