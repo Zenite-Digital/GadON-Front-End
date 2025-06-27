@@ -24,6 +24,10 @@ export default function LotesList() {
     setExpanded(expanded === id ? null : id);
   };
 
+  const handleNavigateToLote = (id: number) => {
+    router.push({ pathname: "/dados-lotes", params: { loteId: id } });
+  };
+
   const handleEdit = (id: number) => {
     // Editar lote
   //   router.push(`/lotes/${id}`);
@@ -32,11 +36,16 @@ export default function LotesList() {
   const renderItem = ({ item }: { item: Lote }) => (
     <View style={[styles.card, expanded === item.id && styles.cardExpanded]}>
       <View style={styles.cardHeader}>
-        <Celeiro iconSize="md"  style={{ marginRight: 10 }} />
-        <View style={{ flex: 1 }}>
-          <Text style={styles.cardTitle}>{item.nome}</Text>
-          <Text style={styles.cardSubtitle}>Área: {item.area} · Animais: {item.animais}</Text>
-        </View>
+        <TouchableOpacity 
+          onPress={() => handleNavigateToLote(item.id)} 
+          style={{ flexDirection: 'row', flex: 1, alignItems: 'center', marginRight: 10 }}
+        >
+          <Celeiro iconSize="md"  style={{ marginRight: 10 }} />
+          <View style={{ flex: 1 }}>
+            <Text style={styles.cardTitle}>{item.nome}</Text>
+            <Text style={styles.cardSubtitle}>Área: {item.area} · Animais: {item.animais}</Text>
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => handleExpand(item.id)}>
           {expanded === item.id ? (
           <ChevronCima width={22} height={22} color="#333" />
