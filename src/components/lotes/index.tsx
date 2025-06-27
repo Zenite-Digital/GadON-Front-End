@@ -1,13 +1,12 @@
-// import { ChevronDireita } from "@assets/icons";
-// import Card from "@components/card";
-// import Colors from "@constants/Colors";
-// import Lote from "../../constants/mock-data/LotesCards";
-// import { router } from "expo-router";
-import React from "react";
-import { AntDesign, Feather } from "@expo/vector-icons";
-import { View, Text, Image, Alert, TouchableOpacity } from "react-native";
-import Colors from "@constants/Colors";
-import Casa from "@assets/icons/Casa"; 
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, FlatList, Image } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { styles } from "@components/lotes/styles";
+import { useRouter } from "expo-router";
+import lotes from "@constants/mock-data/LotesCards";
+import Celeiro from "@assets/icons/Celeiro"; 
+import ChevronBaixo from "@assets/icons/ChevronBaixo";
+import ChevronCima from "@assets/icons/ChevronCima";
 
 type Lote = {
   id: number;
@@ -17,48 +16,57 @@ type Lote = {
   imagem: any;
 };
 
-type LoteCardProps = {
-  item: Lote;
-  expanded: boolean;
-  onExpand: (id: number) => void;
-};
+export default function LotesList() {
+  const [expanded, setExpanded] = useState<number | null>(null);
+  const router = useRouter();
 
-export default function LoteCard({ item, expanded, onExpand }: LoteCardProps) {
-  return (
-    <View className={`bg-white rounded-xl shadow p-4 mb-4 ${expanded ? "border-2 border-blue-500" : ""}`}>
-      <View className="flex-row items-center">
-        { <Casa iconSize="md" stroke={Colors.light.tint} /> }
-        
-        <View className="flex-1">
-          <Text className="font-bold text-base text-gray-800">{item.nome}</Text>
-          <Text className="text-gray-500 text-xs">
-            Área: {item.area} · Animais: {item.animais}
-          </Text>
+  const handleExpand = (id: number) => {
+    setExpanded(expanded === id ? null : id);
+  };
+
+  const handleEdit = (id: number) => {
+    // Editar lote
+  //   router.push(`/lotes/${id}`);
+  };
+
+  const renderItem = ({ item }: { item: Lote }) => (
+    <View style={[styles.card, expanded === item.id && styles.cardExpanded]}>
+      <View style={styles.cardHeader}>
+        <Celeiro iconSize="md"  style={{ marginRight: 10 }} />
+        <View style={{ flex: 1 }}>
+          <Text style={styles.cardTitle}>{item.nome}</Text>
+          <Text style={styles.cardSubtitle}>Área: {item.area} · Animais: {item.animais}</Text>
         </View>
-        <TouchableOpacity onPress={() => onExpand(item.id)}>
-          <AntDesign
-            name={expanded ? "up" : "down"}
-            size={22}
-            color={Colors.light.text}
-          />
+        <TouchableOpacity onPress={() => handleExpand(item.id)}>
+          {expanded === item.id ? (
+          <ChevronCima width={22} height={22} color="#333" />
+        ) : (
+          <ChevronBaixo width={22} height={22} color="#333" />
+        )}
         </TouchableOpacity>
       </View>
-      {expanded && (
-        <View className="mt-4">
-          <Image
-            source={item.imagem}
-            className="w-full h-32 rounded-lg mb-3"
-            resizeMode="cover"
-          />
+      {expanded === item.id && (
+        <View style={styles.cardContent}>
+          <Image source={item.imagem} style={styles.loteImage} resizeMode="cover" />
           <TouchableOpacity
-            className="flex-row items-center bg-blue-500 px-3 py-2 rounded-lg self-end"
-            onPress={() => Alert.alert("Editar", "Editar informações do lote")}
+            style={styles.editButton}
+            onPress={() => handleEdit(item.id)}
           >
             <Feather name="edit" size={18} color="#fff" />
-            <Text className="text-white ml-2 font-semibold">Editar</Text>
+            <Text style={styles.editButtonText}>Editar</Text>
           </TouchableOpacity>
         </View>
       )}
     </View>
+  );
+
+  return (
+    <FlatList
+      data={lotes}
+      keyExtractor={item => item.id.toString()}
+      renderItem={renderItem}
+      contentContainerStyle={{ padding: 16, paddingBottom: 80 }}
+      showsVerticalScrollIndicator={false}
+    />
   );
 }
