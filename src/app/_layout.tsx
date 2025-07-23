@@ -99,6 +99,42 @@ function RootLayoutNav() {
           }}
         />
 
+        <Stack.Screen 
+          name="visao-geral" 
+          options={{ 
+            title: 'Visão Geral',
+            headerTitleAlign: 'center',
+            headerStyle: {
+              backgroundColor: '#fff',
+              borderBottomWidth: 1,
+              borderBottomColor: '#e5e7eb',
+            },
+            headerTitleStyle: {
+              fontSize: 18,
+              fontWeight: '600',
+              color: '#000',
+            },
+            headerLeft: () => (
+              <FontAwesome 
+                name="chevron-left" 
+                size={20} 
+                color="#000" 
+                style={{ marginLeft: 10 }}
+                onPress={() => console.log('Back pressed')} // Adicione sua lógica de navegação
+              />
+            ),
+            headerRight: () => (
+              <FontAwesome 
+                name="gear" 
+                size={20} 
+                color="#000" 
+                style={{ marginRight: 10 }}
+                onPress={() => console.log('Settings pressed')} // Adicione sua lógica de navegação
+              />
+            ),
+          }} 
+        />
+
       </Stack>
       
     </ThemeProvider>
