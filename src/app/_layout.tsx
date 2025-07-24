@@ -84,21 +84,6 @@ function RootLayoutNav() {
             },
           }} />
 
-
-        <Stack.Screen
-          name="atualizar-perfil"
-          options={{
-            title: 'Meus Dados',
-            presentation: 'modal',
-            headerTitleAlign: 'center',
-            headerStyle: {
-              borderBottomWidth: 2,
-              borderBottomColor: '#6DB388',
-            },
-            headerShadowVisible: false,
-          }}
-        />
-
         <Stack.Screen 
           name="visao-geral" 
           options={{ 
