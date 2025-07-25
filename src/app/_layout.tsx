@@ -5,6 +5,8 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import { TouchableOpacity } from "react-native";
+import ChevronEsquerda from "@assets/icons/ChevronEsquerda";
 
 import "../../global.css";
 import { useGlobalProps } from "@hooks/useGlobalProps";
@@ -27,8 +29,6 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  useGlobalProps();
-
   useEffect(() => {
     if (error) throw error;
   }, [error]);
@@ -50,6 +50,19 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={DefaultTheme}>
       <Stack>
+        <Stack.Screen 
+          name="lotes" 
+          options={({ navigation }) => ({ 
+            title: 'Lotes',
+            headerShown: true, 
+            headerTitleAlign: 'center', 
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 10 }}>
+                <ChevronEsquerda width={22} height={22} color="#000" />
+              </TouchableOpacity>
+            ),
+          })} 
+        />
         <Stack.Screen name="index" options={{ headerShown: false }} redirect={true} />
         <Stack.Screen name="tela-login" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -83,6 +96,22 @@ function RootLayoutNav() {
             
             },
           }} />
+        
+        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+
+        <Stack.Screen
+          name="atualizar-perfil"
+          options={{
+            title: 'Meus Dados',
+            presentation: 'modal',
+            headerTitleAlign: 'center',
+            headerStyle: {
+              borderBottomWidth: 2,
+              borderBottomColor: '#6DB388',
+            },
+            headerShadowVisible: false,
+          }}
+        />
 
         <Stack.Screen 
           name="visao-geral" 
