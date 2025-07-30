@@ -2,7 +2,7 @@ import { Casa, Lixo } from "@assets/icons";
 import Button from "@components/button";
 import Card from "@components/card";
 import FontAwesomeIcon from "@components/font-awesome-icon";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import { Alert } from "react-native";
 import {
@@ -19,6 +19,7 @@ import {
 export default function ProprietiesScreen() {
 
     const params = useLocalSearchParams<{ id?: string, propriedade?: string }>();
+    const router = useRouter();
 
     console.debug(params);
 
@@ -65,7 +66,7 @@ export default function ProprietiesScreen() {
                 text="Lotes"
                 variant="solid"
                 className="bg-neutral-200 color-black flex align-middle items-center justify-center h-16"
-
+                onPress={() => router.push('/lotes')}
             ></Button>
 
             <View style={styles.espaco}></View>
