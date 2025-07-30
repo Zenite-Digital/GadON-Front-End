@@ -24,14 +24,14 @@ export default function ProprietiesScreen() {
 
     return (
 
-        <ScrollView className="p-6 xl flex-col " contentContainerClassName="flex-grow grid grid-cols-5">
+        <ScrollView className="p-6 xl flex-col " contentContainerClassName="flex-grow grid md:grid-cols-5">
             <Image
-                className=" rounded-lg mb-4 col-span-3"
+                className=" rounded-lg mb-4 md:col-span-3"
                 resizeMode="cover"
                 resizeMethod="scale"
                 source={{ uri: 'https://lh6.googleusercontent.com/c521mvIJRt2PqK6Gh4vqHXqjf2312qRu1To9cKLoFQaT5s6qOUNGV1tTKz7sYwz1Dka8YIlnXLsI6hAhRnXjh-K8S7pvKp97YF-arrxm4QZW7CQR3GOixVyGHNhKKfR9dK43bXnw' }}
             />
-            <View className="col-span-2 flex flex-col justify-between">
+            <View className="md:col-span-2 flex flex-col justify-between">
                 <View
                     className="flex flex-row items-center justify-between rounded-lg p-4 mb-4 bg-neutral-100 overflow-hidden "
                 >
@@ -54,6 +54,15 @@ export default function ProprietiesScreen() {
                         text="Visão Geral"
                         variant="solid"
                         className="bg-neutral-200 color-black flex align-middle items-center justify-center h-16 mb-4"
+                        onPress={() => {
+                            router.push({
+                                pathname: "/",
+                                params: {
+                                    propriedade: params.propriedade,
+                                    id: params.id,
+                                },
+                            })
+                        }}
 
                     ></Button>
                     <Button
@@ -61,7 +70,15 @@ export default function ProprietiesScreen() {
                         text="Finanças"
                         variant="solid"
                         className="bg-neutral-200 color-black flex align-middle items-center justify-center h-16 mb-4"
-
+                        onPress={() => {
+                            router.push({
+                                pathname: "/dashboard",
+                                params: {
+                                    propriedade: params.propriedade,
+                                    id: params.id,
+                                },
+                            })
+                        }}
                     ></Button>
                     <Button
                         fullWidth={true}
