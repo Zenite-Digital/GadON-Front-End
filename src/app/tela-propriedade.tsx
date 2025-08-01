@@ -53,7 +53,7 @@ export default function ProprietiesScreen() {
                         fullWidth={true}
                         text="Visão Geral"
                         variant="solid"
-                        className="bg-neutral-200 color-black flex align-middle items-center justify-center h-16 mb-4"
+                        className="bg-neutral-300 color-black flex align-middle items-center justify-center h-16 mb-4"
                         onPress={() => {
                             router.push({
                                 pathname: "/",
@@ -68,8 +68,7 @@ export default function ProprietiesScreen() {
                     <Button
                         fullWidth={true}
                         text="Finanças"
-                        variant="solid"
-                        className="bg-neutral-200 color-black flex align-middle items-center justify-center h-16 mb-4"
+                        className="bg-neutral-300 color-black flex align-middle items-center justify-center h-16 mb-4"
                         onPress={() => {
                             router.push({
                                 pathname: "/dashboard",
@@ -84,7 +83,7 @@ export default function ProprietiesScreen() {
                         fullWidth={true}
                         text="Lotes"
                         variant="solid"
-                        className="bg-neutral-200 color-black flex align-middle items-center justify-center h-16"
+                        className="bg-neutral-300 color-black flex align-middle items-center justify-center h-16"
                         onPress={() => {
                             router.push({
                                 pathname: "/lotes",
