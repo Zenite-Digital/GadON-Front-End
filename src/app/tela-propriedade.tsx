@@ -26,9 +26,9 @@ export default function ProprietiesScreen() {
 
         <ScrollView className="p-6 xl flex-col " contentContainerClassName="flex-grow grid md:grid-cols-5">
             <Image
-                className=" rounded-lg mb-4 md:col-span-3"
-                resizeMode="cover"
-                resizeMethod="scale"
+                className=" rounded-lg lg:h-full md:col-span-3 mb-4 h-60 w-auto"
+                // resizeMode="cover"
+                // resizeMethod="scale"
                 source={{ uri: 'https://lh6.googleusercontent.com/c521mvIJRt2PqK6Gh4vqHXqjf2312qRu1To9cKLoFQaT5s6qOUNGV1tTKz7sYwz1Dka8YIlnXLsI6hAhRnXjh-K8S7pvKp97YF-arrxm4QZW7CQR3GOixVyGHNhKKfR9dK43bXnw' }}
             />
             <View className="md:col-span-2 flex flex-col justify-between">
