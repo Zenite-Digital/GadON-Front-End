@@ -20,7 +20,7 @@ const SvgComponent = ({
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2.667}
-        d="m10.5 21 7-7-7-7"
+        d="M17.5 21L10.5 14L17.5 7"
       />
     </Svg>
   );
