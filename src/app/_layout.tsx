@@ -11,9 +11,7 @@ import ChevronEsquerda from "@assets/icons/ChevronEsquerda";
 import "../../global.css";
 import { useGlobalProps } from "@hooks/useGlobalProps";
 
-export {
-  ErrorBoundary,
-} from "expo-router";
+export { ErrorBoundary } from "expo-router";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -49,108 +47,107 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <ThemeProvider value={DefaultTheme}>
-      <Stack>
-        <Stack.Screen 
-          name="lotes" 
-          options={({ navigation }) => ({ 
-            title: 'Lotes',
-            headerShown: true, 
-            headerTitleAlign: 'center', 
+      <Stack initialRouteName="tela-login">
+        <Stack.Screen
+          name="index"
+          options={{ headerShown: false }}
+          redirect={true}
+        />
+        <Stack.Screen
+          name="lotes"
+          options={({ navigation }) => ({
+            title: "Lotes",
+            headerShown: true,
+            headerTitleAlign: "center",
             headerLeft: () => (
-              <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 10 }}>
+              <TouchableOpacity
+                onPress={() => navigation.goBack()}
+                style={{ marginLeft: 10 }}
+              >
                 <ChevronEsquerda width={22} height={22} color="#000" />
               </TouchableOpacity>
             ),
-          })} 
+          })}
         />
-        <Stack.Screen name="index" options={{ headerShown: false }} redirect={true} />
         <Stack.Screen name="tela-login" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen 
-          name="cadastro-perfil" 
-          options={{ 
-            title: 'Cadastro',
-            headerShown: true, 
-            headerTitleAlign: 'center', 
-            headerStyle: {
-            borderBottomColor: '#005E24', 
-            },
-          }} />
-
-        <Stack.Screen 
-          name="tela-propriedade" 
-          
-          options={{ title: 'Minha propriedade', 
-            headerTitleAlign: 'center', 
-            headerRight: () => (
-              <FontAwesome 
-                name="gear" 
-                size={24} 
-                color="#000" 
-                className="p-2 mr-2"
-                onPress={() => console.log('Menu pressed')} // Replace with your navigation logic
-              />
-            ),
-            headerStyle: {
-            borderBottomColor: '#005E24', 
-            
-            },
-          }} />
-        
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-
         <Stack.Screen
-          name="atualizar-perfil"
+          name="cadastro-perfil"
           options={{
-            title: 'Meus Dados',
-            presentation: 'modal',
-            headerTitleAlign: 'center',
-            headerStyle: {
-              borderBottomWidth: 2,
-              borderBottomColor: '#6DB388',
-            },
-            headerShadowVisible: false,
+            headerShown: false,
           }}
         />
 
-        <Stack.Screen 
-          name="visao-geral" 
-          options={{ 
-            title: 'Visão Geral',
-            headerTitleAlign: 'center',
+        <Stack.Screen
+          name="tela-propriedade"
+          options={{
+            title: "Minha propriedade",
+            headerTitleAlign: "center",
+            headerRight: () => (
+              <FontAwesome
+                name="gear"
+                size={24}
+                color="#000"
+                className="p-2 mr-2"
+                onPress={() => console.log("Menu pressed")} // Replace with your navigation logic
+              />
+            ),
             headerStyle: {
-              backgroundColor: '#fff',
+              borderBottomColor: "#005E24",
+            },
+          }}
+        />
+
+        {/* <Stack.Screen
+          name="atualizar-perfil"
+          options={{
+            title: "Meus Dados",
+            presentation: "modal",
+            headerTitleAlign: "center",
+            headerStyle: {
+              borderBottomWidth: 2,
+              borderBottomColor: "#6DB388",
+            },
+            headerShadowVisible: false,
+          }}
+        /> */}
+
+        <Stack.Screen
+          name="visao-geral"
+          options={{
+            title: "Visão Geral",
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: "#fff",
               borderBottomWidth: 1,
-              borderBottomColor: '#e5e7eb',
+              borderBottomColor: "#e5e7eb",
             },
             headerTitleStyle: {
               fontSize: 18,
-              fontWeight: '600',
-              color: '#000',
+              fontWeight: "600",
+              color: "#000",
             },
             headerLeft: () => (
-              <FontAwesome 
-                name="chevron-left" 
-                size={20} 
-                color="#000" 
+              <FontAwesome
+                name="chevron-left"
+                size={20}
+                color="#000"
                 style={{ marginLeft: 10 }}
-                onPress={() => console.log('Back pressed')} // Adicione sua lógica de navegação
+                onPress={() => console.log("Back pressed")} // Adicione sua lógica de navegação
               />
             ),
             headerRight: () => (
-              <FontAwesome 
-                name="gear" 
-                size={20} 
-                color="#000" 
+              <FontAwesome
+                name="gear"
+                size={20}
+                color="#000"
                 style={{ marginRight: 10 }}
-                onPress={() => console.log('Settings pressed')} // Adicione sua lógica de navegação
+                onPress={() => console.log("Settings pressed")} // Adicione sua lógica de navegação
               />
             ),
-          }} 
+          }}
         />
-
       </Stack>
-      
     </ThemeProvider>
   );
 }
