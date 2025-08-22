@@ -9,12 +9,13 @@ type SvgComponentProps = SvgProps & {
 
 const SvgComponent = ({
   stroke = "#000",
+  fill = "none",
   iconSize: iconSizeProp,
   ...props
 }: SvgComponentProps) => {
   const size = iconSize[iconSizeProp || "sm"] || iconSize.md;
   return (
-    <Svg width={size} height={size} {...props} viewBox="0 0 28 28" fill="none">
+    <Svg width={size} height={size} {...props} viewBox="0 0 28 28" fill={fill}>
       <Path
         stroke={stroke}
         strokeLinecap="round"
