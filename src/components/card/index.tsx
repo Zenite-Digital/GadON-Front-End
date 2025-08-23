@@ -22,7 +22,13 @@ type CardsProps = {
   };
 };
 
-const Card = ({ title, description, imageSource, slots, pathname }: CardsProps) => {
+const Card = ({
+  title,
+  description,
+  imageSource,
+  slots,
+  pathname,
+}: CardsProps) => {
   const image = useMemo(
     () =>
       imageSource
@@ -74,7 +80,7 @@ const Card = ({ title, description, imageSource, slots, pathname }: CardsProps) 
                 params: {
                   id: pathname,
                   propriedade: title,
-                }
+                },
               });
             }}
           />
