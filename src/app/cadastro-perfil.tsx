@@ -1,208 +1,178 @@
-import React, { useRef, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
-import { ScrollView } from "react-native";
+import { Edit } from "@assets/icons";
+import TextInput from "@components/text-input";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  useWindowDimensions,
+} from "react-native";
 
 export default function CadastroPerfil() {
+  const router = useRouter();
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
-  const [mostrarSenha, setMostrarSenha] = useState(false);
-  const [imagemPerfil, setImagemPerfil] = useState<any>(require('../../assets/images/app-icon.png')); // imagem padrão de perfil
+  const [mostrarSenha] = useState(false);
+  const [imagemPerfil] = useState<any>(
+    require("../../assets/images/app-icon.png")
+  ); // imagem padrão de perfil
   const [numeroCadPro, setNumeroCadPro] = useState("");
   const [nomePropriedade, setNomePropriedade] = useState("");
   const [areaPropriedade, setAreaPropriedade] = useState("");
   const [qtdAnimais, setQtdAnimais] = useState("");
   const [adicionarPropiedade, setadicionarPropiedade] = useState(false);
+  const { width: windowWidth } = useWindowDimensions();
+
+  const imageWidth = (() => {
+    let resolution = windowWidth / 3;
+
+    if (resolution > 320) resolution = 320;
+    if (resolution < 155) resolution = 155;
+
+    return resolution;
+  })();
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={{ alignItems: "center", marginBottom: 8 }}>
+    <ScrollView
+      className="w-full flex flex-col self-center font-sans py-6 flex-1 bg-white min-w-[320px]"
+      contentContainerClassName="flex flex-grow content-center items-center"
+    >
+      <View className="items-center mb-2 h-fit w-1/2">
         <Image
-          source={require('../../assets/images/logo.png')}
-          style={{ width: 300, height: 100, marginBottom: 0 }}
-          resizeMode="contain"
-          
+          source={require("../../assets/images/logo.png")}
+          style={{
+            width: "100%",
+            marginBottom: 0,
+          }}
+          className="max-w-56 max-h-16"
+          resizeMode="cover"
         />
       </View>
-      <View style={{ alignItems: "center", marginBottom: 8 }}>
-        <Text style={{ fontWeight: "bold", fontSize: 22 }}>Crie sua conta</Text>
-        <Text style={{ color: "#222", fontSize: 16, marginTop: 4 }}>Vamos cadastrar você!</Text>
+
+      <View className="items-center mb-8">
+        <Text className="font-bold text-[22px]">Crie sua conta</Text>
+        <Text className="text-[#222] text-base mt-1">
+          Vamos cadastrar você!
+        </Text>
       </View>
-      
-      <View style={{ alignItems: "center", marginVertical: 24 }}>
-        <View>
+
+      <View className="grid max-w-[400px] justify-items-center flex-grow md:grid-cols-2 sm:max-w-full">
+        <View className="items-center my-6 place-self-center max-w-[320px] self-center relative">
           <Image
             source={imagemPerfil}
+            className="rounded-full border-[3px] border-[#005E24] bg-white"
             style={{
-              width: 120,
-              height: 120,
-              borderRadius: 60,
-              borderWidth: 3,
-              borderColor: "#005E24",
-              backgroundColor: "#fff"
+              maxHeight: 320,
+              maxWidth: 320,
+              width: windowWidth / 2,
+              height: windowWidth / 2,
             }}
+            resizeMode="cover"
           />
-          
-          <View style={{ alignItems: "center", marginVertical: 24 }}>
-        <View>
-          
-          <TouchableOpacity
-            // onPress={}
-            style={{
-              position: "absolute",
-              
-              left: 20,
-              bottom: 0,
-              backgroundColor: "#005E24",
-              borderRadius: 20,
-              width: 40,
-              height: 40,
-              alignItems: "center",
-              justifyContent: "center",
-              borderWidth: 2,
-              borderColor: "#fff",
-            }}
-          >
-            <Text style={{ color: "#fff", fontSize: 20 }}>✎</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-        </View>
-      </View>
-      
-      <View style={{ gap: 12, width: "100%" }}>
-        <TextInput
-          value={nome}
-          onChangeText={setNome}
-          placeholder="Nome Completo"
-          style={styles.input}
-        />
-        <TextInput
-          value={email}
-          onChangeText={setEmail}
-          placeholder="email@exemplo.com"
-          style={styles.input}
-        />
-        <TextInput
-          value={senha}
-          onChangeText={setSenha}
-          placeholder="Senha"
-          secureTextEntry={!mostrarSenha}
-          style={styles.input}
-        />
-        <TextInput
-          value={confirmarSenha}
-          onChangeText={setConfirmarSenha}
-          placeholder="Confirmar senha"
-          secureTextEntry={!mostrarSenha}
-          style={styles.input}
-        />
-        <TouchableOpacity
-          style={[styles.input, { backgroundColor: "#f5f5f5", justifyContent: "center", height: 48, flexDirection: "row"}]}
-          onPress={() => setadicionarPropiedade(!adicionarPropiedade)}
-          activeOpacity={0.7}
-        >
-          <Text style={{ color: "#888", flex: 1, fontSize: 18 }}>
-            Adicionar Propriedade
-          </Text>
-          <Text style={{ color: "#888", fontSize: 18 }}>{adicionarPropiedade ? "▲" : "▼"}</Text>
-
-        </TouchableOpacity>
-        {adicionarPropiedade && (
-          <View style={{ gap: 12, marginTop: 8 }}>
-            <TextInput
-              value={numeroCadPro}
-              onChangeText={setNumeroCadPro}
-              placeholder="Número do CadPro"
-              style={styles.input}
-              keyboardType="numeric"
-            />
-            <TextInput
-              value={nomePropriedade}
-              onChangeText={setNomePropriedade}
-              placeholder="Nome da Propriedade"
-              style={styles.input}
-            />
-            <TextInput
-              value={areaPropriedade}
-              onChangeText={setAreaPropriedade}
-              placeholder="Área disponível da propriedade (ha)"
-              style={styles.input}
-              keyboardType="numeric"
-            />
-            <TextInput
-              value={qtdAnimais}
-              onChangeText={setQtdAnimais}
-              placeholder="Quantidade de animais"
-              style={styles.input}
-              keyboardType="numeric"
-            />
+          <View className="absolute bottom-0 flex w-[70%] self-center flex-row-reverse sm:w-[80%]">
+            <TouchableOpacity
+              activeOpacity={50}
+              className="bg-[#005E24] rounded-full w-16 h-16 items-center justify-center"
+            >
+              <Edit width={24} height={24} stroke="#fff" fill="#fff" />
+            </TouchableOpacity>
           </View>
-        )}
+        </View>
+
+        <View className=" flex flex-col  w-4/5">
+          <View className="gap-3 w-full">
+            <TextInput
+              value={nome}
+              onChangeText={setNome}
+              placeholder="Nome Completo"
+            />
+            <TextInput
+              value={email}
+              onChangeText={setEmail}
+              placeholder="email@exemplo.com"
+            />
+            <TextInput
+              value={senha}
+              onChangeText={setSenha}
+              placeholder="Senha"
+              secureTextEntry={!mostrarSenha}
+            />
+            <TextInput
+              value={confirmarSenha}
+              onChangeText={setConfirmarSenha}
+              placeholder="Confirmar senha"
+              secureTextEntry={!mostrarSenha}
+            />
+            <TouchableOpacity
+              className="flex flex-row border border-gray-300 rounded-lg p-4 text-base bg-white font-inter-regular"
+              onPress={() => setadicionarPropiedade(!adicionarPropiedade)}
+              activeOpacity={0.7}
+            >
+              <Text className="text-[#888] flex-1 text-lg">
+                Adicionar Propriedade
+              </Text>
+              <Text className="text-[#888] text-lg">
+                {adicionarPropiedade ? "▲" : "▼"}
+              </Text>
+            </TouchableOpacity>
+            {adicionarPropiedade && (
+              <View className="gap-2 mt-2 px-4">
+                <TextInput
+                  value={numeroCadPro}
+                  onChangeText={setNumeroCadPro}
+                  placeholder="Número do CadPro"
+                  keyboardType="numeric"
+                />
+                <TextInput
+                  value={nomePropriedade}
+                  onChangeText={setNomePropriedade}
+                  placeholder="Nome da Propriedade"
+                />
+                <TextInput
+                  value={areaPropriedade}
+                  onChangeText={setAreaPropriedade}
+                  placeholder="Área disponível da propriedade (ha)"
+                  keyboardType="numeric"
+                />
+                <TextInput
+                  value={qtdAnimais}
+                  onChangeText={setQtdAnimais}
+                  placeholder="Quantidade de animais"
+                  keyboardType="numeric"
+                />
+              </View>
+            )}
+          </View>
+
+          <View className="items-center mt-6 gap-3 w-full">
+            <TouchableOpacity
+              className="p-3 rounded-lg bg-[#005E24] items-center w-4/5"
+              onPress={() => router.replace("/(tabs)")}
+            >
+              <Text className="text-white font-bold text-base items-center">
+                Continuar
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="p-3 rounded-lg bg-[#eee] items-center w-4/5"
+              onPress={() => router.replace("/tela-login")}
+            >
+              <Text className="text-[#888] font-bold text-base">Cancelar</Text>
+            </TouchableOpacity>
+          </View>
+
+          <Text className="mt-[18px] text-xs px-6 text-[#444] text-center">
+            Ao continuar, você concorda com os{" "}
+            <Text className="font-bold">Termos de Serviço</Text> e{" "}
+            <Text className="font-bold">Política de Privacidade</Text>.
+          </Text>
+        </View>
       </View>
-      
-      <View style={{ alignItems:"center", marginTop: 24, gap: 12, width: "100%" }}>
-        <TouchableOpacity style={styles.btnPrimary}>
-          <Text style={styles.btnPrimaryText}>Continuar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnSecondary}>
-          <Text style={styles.btnSecondaryText}>Cancelar</Text>
-        </TouchableOpacity>
-      </View>
-      
-      <Text style={{ marginTop: 18, fontSize: 12, color: "#444", textAlign: "center" }}>
-        Ao continuar, você concorda com os <Text style={{ fontWeight: "bold" }}>Termos de Serviço</Text> e <Text style={{ fontWeight: "bold" }}>Política de Privacidade</Text>.
-      </Text>
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    maxWidth: 430,
-    alignSelf: "center",
-    fontFamily: "sans-serif",
-    padding: 24,
-    flex: 1,
-    backgroundColor: "#fff"
-  },
-  input: {
-    padding: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    alignSelf: "center",
-    fontSize: 16,
-    backgroundColor: "#fafafa",
-    marginBottom: 0,
-    marginTop: 0,
-    width: "80%"
-  },
-  btnPrimary: {
-    padding: 12,
-    borderRadius: 8,
-    backgroundColor: "#005E24",
-    alignItems: "center",
-    width: "80%",
-    
-  },
-  btnPrimaryText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 16,
-    alignItems: "center",
-  },
-  btnSecondary: {
-    padding: 12,
-    borderRadius: 8,
-    backgroundColor: "#eee",
-    alignItems: "center",
-    width: "80%",
-  },
-  btnSecondaryText: {
-    color: "#888",
-    fontWeight: "bold",
-    fontSize: 16
-  }
-});
