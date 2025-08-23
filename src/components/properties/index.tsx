@@ -30,10 +30,11 @@ const Properties = ({ data }: PropertiesProps) => {
           <ChevronDireita iconSize="sm" />
         </View>
       </View>
-      <View className="grid grid-cols-2 font-sans">
+      <View className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 font-sans">
         {data?.map((item, index) => {
           return (
             <TouchableHighlight
+              key={`card-propriedade-${item.id}`}
               className="flex-1 m-2 p-2 bg-white rounded-2xl active:bg-outros-hover"
               underlayColor={Colors.outros.hover}
             >
