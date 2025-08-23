@@ -3,8 +3,14 @@ import Card from "@components/card";
 import Colors from "@constants/Colors";
 import { router } from "expo-router";
 import React from "react";
-import { View, Text, FlatList, TouchableHighlight } from "react-native";
-type Propertie = {
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableHighlight,
+  ScrollView,
+} from "react-native";
+type Property = {
   id: number;
   nome: string;
   imagem: string;
@@ -12,22 +18,23 @@ type Propertie = {
 };
 
 type PropertiesProps = {
-  data: Propertie[];
+  data: Property[];
 };
 
 const Properties = ({ data }: PropertiesProps) => {
   return (
-    <View className="flex flex-col gap-4">
+    <ScrollView contentContainerClassName="flex flex-col gap-4">
       <View className="flex flex-row gap-3 items-center">
         <Text className="text-[16px] font-semibold">Propriedades</Text>
         <View className="bg-outros-secondary rounded-full p-1">
           <ChevronDireita iconSize="sm" />
         </View>
       </View>
-      <View className="grid grid-cols-2 font-sans">
+      <View className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 font-sans">
         {data?.map((item, index) => {
           return (
             <TouchableHighlight
+              key={`card-propriedade-${item.id}`}
               className="flex-1 m-2 p-2 bg-white rounded-2xl active:bg-outros-hover"
               underlayColor={Colors.outros.hover}
             >
@@ -37,13 +44,12 @@ const Properties = ({ data }: PropertiesProps) => {
                 imageSource={item.imagem}
                 key={`${item.id}-${index}`}
                 pathname={item.id}
-                
               />
             </TouchableHighlight>
           );
         })}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

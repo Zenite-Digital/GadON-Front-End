@@ -4,13 +4,13 @@ import {
   Linking,
   ScrollView,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   Image,
   useWindowDimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
+import TextInput from "@components/text-input";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -87,7 +87,7 @@ export default function LoginScreen() {
 
         <View className="mb-8">
           <TextInput
-            className="border border-gray-300 rounded-lg p-4 text-base bg-white mb-4 font-inter-regular"
+            className="mb-4"
             placeholder="email@exemplo.com"
             placeholderTextColor="#828282"
             value={email}
@@ -99,7 +99,7 @@ export default function LoginScreen() {
           {isExistingUser && (
             <View className="relative mb-4">
               <TextInput
-                className="border border-gray-300 rounded-lg p-4 pr-12 text-base bg-white font-inter-regular"
+                className="mb-4"
                 placeholder="Senha"
                 placeholderTextColor="#828282"
                 value={password}

@@ -53,22 +53,20 @@ const Button = ({
         !fullWidth ? "self-start" : "w-full",
         className
       )}
-      style={{
-        width: "auto",
-      }}
       {...props}
     >
       {({ pressed }) => (
         <>
-        {Icon}
-        <Text
-          className={cn(
-            pressed ? theme.text.pressed : theme.text.default,
-            slots?.text?.className
-          )}
-        >
-          {text}
-        </Text></>
+          {Icon}
+          <Text
+            className={cn(
+              pressed ? theme.text.pressed : theme.text.default,
+              slots?.text?.className
+            )}
+          >
+            {text}
+          </Text>
+        </>
       )}
     </Pressable>
   );
