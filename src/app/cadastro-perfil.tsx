@@ -1,4 +1,5 @@
 import { Edit } from "@assets/icons";
+import Button from "@components/button";
 import TextInput from "@components/text-input";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -42,7 +43,7 @@ export default function CadastroPerfil() {
       className="w-full flex flex-col self-center font-sans py-6 flex-1 bg-white min-w-[320px]"
       contentContainerClassName="flex flex-grow content-center items-center"
     >
-      <View className="items-center mb-2 h-fit w-1/2">
+      <View className="items-center mb-2 h-fit max-h-16 w-1/2">
         <Image
           source={require("../../assets/images/logo.png")}
           style={{
@@ -84,7 +85,7 @@ export default function CadastroPerfil() {
           </View>
         </View>
 
-        <View className=" flex flex-col  w-4/5">
+        <View className=" flex flex-col items-center  w-4/5">
           <View className="gap-3 w-full">
             <TextInput
               value={nome}
@@ -109,7 +110,7 @@ export default function CadastroPerfil() {
               secureTextEntry={!mostrarSenha}
             />
             <TouchableOpacity
-              className="flex flex-row border border-gray-300 rounded-lg p-4 text-base bg-white font-inter-regular"
+              className="flex w-full flex-row border border-gray-300 rounded-lg p-4 text-base bg-white font-inter-regular"
               onPress={() => setadicionarPropiedade(!adicionarPropiedade)}
               activeOpacity={0.7}
             >
@@ -149,21 +150,19 @@ export default function CadastroPerfil() {
             )}
           </View>
 
-          <View className="items-center mt-6 gap-3 w-full">
-            <TouchableOpacity
-              className="p-3 rounded-lg bg-[#005E24] items-center w-4/5"
+          <View className="flex mt-6 gap-3 w-full flex-grow">
+            <Button
+              className="items-center self-center w-2/3 p-4 font-bold min-w-60"
+              color="main"
               onPress={() => router.replace("/(tabs)")}
-            >
-              <Text className="text-white font-bold text-base items-center">
-                Continuar
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="p-3 rounded-lg bg-[#eee] items-center w-4/5"
-              onPress={() => router.replace("/tela-login")}
-            >
-              <Text className="text-[#888] font-bold text-base">Cancelar</Text>
-            </TouchableOpacity>
+              text="Continuar"
+            />
+            <Button
+              className="items-center self-center w-2/3 p-4 font-bold min-w-60"
+              color="light"
+              onPress={() => router.back()}
+              text="Cancelar"
+            />
           </View>
 
           <Text className="mt-[18px] text-xs px-6 text-[#444] text-center">
