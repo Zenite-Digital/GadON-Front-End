@@ -10,7 +10,7 @@ import {
   TouchableHighlight,
   ScrollView,
 } from "react-native";
-type Propertie = {
+type Property = {
   id: number;
   nome: string;
   imagem: string;
@@ -18,7 +18,7 @@ type Propertie = {
 };
 
 type PropertiesProps = {
-  data: Propertie[];
+  data: Property[];
 };
 
 const Properties = ({ data }: PropertiesProps) => {
