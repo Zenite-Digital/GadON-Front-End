@@ -18,8 +18,6 @@ export default function ProprietiesScreen() {
   const params = useLocalSearchParams<{ id?: string; propriedade?: string }>();
   const router = useRouter();
 
-  console.debug(params);
-
   return (
     <ScrollView
       className="p-6 xl flex-col "

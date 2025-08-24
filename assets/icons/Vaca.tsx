@@ -14,7 +14,6 @@ const SvgComponent = ({
   ...props
 }: SvgComponentProps) => {
   const size = iconSize[iconSizeProp || "sm"] || iconSize.md;
-  console.debug(stroke);
   return (
     <Svg
       width={size}

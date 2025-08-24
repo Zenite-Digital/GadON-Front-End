@@ -18,8 +18,6 @@ export default function TabOneScreen() {
     subscribed: isFocused,
   });
 
-  console.log(propriedadesData);
-
   return (
     <View className="flex flex-col flex-1 p-6 bg-white">
       <Properties data={propriedadesData} />
