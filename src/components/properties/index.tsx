@@ -1,24 +1,60 @@
+import React, { useMemo } from "react";
 import { ChevronDireita } from "@assets/icons";
-import Card from "@components/card";
-import Colors from "@constants/Colors";
+import Card, { CardContent, CardFooter } from "@components/card";
+import { View, Text, ScrollView, Image } from "react-native";
+import { FazendaDTO } from "src/types/dtos/fazenda.dto";
+import Button from "@components/button";
 import { router } from "expo-router";
-import React from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableHighlight,
-  ScrollView,
-} from "react-native";
-type Property = {
-  id: number;
-  nome: string;
-  imagem: string;
-  descricao: string;
-};
 
 type PropertiesProps = {
-  data: Property[];
+  data?: FazendaDTO[];
+};
+
+const CardPropriedade: React.FC<FazendaDTO> = (propriedade) => {
+  const image = useMemo(
+    () =>
+      propriedade.imagem
+        ? { uri: propriedade.imagem }
+        : require("@assets/images/card-default.png"),
+    [propriedade.imagem]
+  );
+
+  const navigateToProperty = () =>
+    router.push({
+      pathname: "/tela-propriedade",
+      params: {
+        id: propriedade.id,
+        propriedade: propriedade.nome,
+      },
+    });
+
+  return (
+    <Card onPress={navigateToProperty}>
+      <CardContent>
+        <Image
+          className="self-center w-44 h-44 rounded-lg"
+          resizeMode="stretch"
+          source={image}
+        />
+        <View className="justify-center gap-2">
+          {propriedade.nome && (
+            <Text numberOfLines={1} className="text-lg font-semibold">
+              {propriedade.nome}
+            </Text>
+          )}
+        </View>
+      </CardContent>
+      <CardFooter>
+        <Button
+          className="rounded-full"
+          color="main"
+          fullWidth
+          text="Acessar"
+          onPress={navigateToProperty}
+        />
+      </CardFooter>
+    </Card>
+  );
 };
 
 const Properties = ({ data }: PropertiesProps) => {
@@ -33,19 +69,10 @@ const Properties = ({ data }: PropertiesProps) => {
       <View className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 font-sans">
         {data?.map((item, index) => {
           return (
-            <TouchableHighlight
-              key={`card-propriedade-${item.id}`}
-              className="flex-1 m-2 p-2 bg-white rounded-2xl active:bg-outros-hover"
-              underlayColor={Colors.outros.hover}
-            >
-              <Card
-                description={item.descricao}
-                title={item.nome}
-                imageSource={item.imagem}
-                key={`${item.id}-${index}`}
-                pathname={item.id}
-              />
-            </TouchableHighlight>
+            <CardPropriedade
+              key={`propriedade-${item.id}-${index}`}
+              {...item}
+            />
           );
         })}
       </View>

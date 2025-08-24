@@ -1,92 +1,111 @@
-import Button from "@components/button";
-import { cn } from "@utils/cn";
-import { router } from "expo-router";
-import React, { useMemo } from "react";
-import { View, Image, Text, SafeAreaView } from "react-native";
+import Colors from "@constants/Colors";
+import React from "react";
+import {
+  SafeAreaView,
+  TouchableHighlight,
+  TouchableHighlightProps,
+  View,
+  ViewProps,
+} from "react-native";
 
-type CardsProps = {
-  imageSource?: string;
-  title?: string;
-  description?: string;
-  pathname: number;
-  slots?: {
-    image?: {
-      className?: string;
-    };
-    title?: {
-      className?: string;
-    };
-    description?: {
-      className?: string;
-    };
-  };
+type CardProps = {
+  children?: React.ReactNode;
+  className?: string;
+  onPress?: TouchableHighlightProps["onPress"];
+  touchableProps?: Omit<TouchableHighlightProps, "onPress" | "underlayColor">;
 };
 
-const Card = ({
-  title,
-  description,
-  imageSource,
-  slots,
-  pathname,
-}: CardsProps) => {
-  const image = useMemo(
-    () =>
-      imageSource
-        ? { uri: imageSource }
-        : require("@assets/images/card-default.png"),
-    [imageSource]
-  );
+type PlaceholderProps = {
+  children?: React.ReactNode;
+  className?: string;
+  onPress?: TouchableHighlightProps["onPress"];
+  touchableProps?: Omit<TouchableHighlightProps, "onPress" | "underlayColor">;
+  wrapperProps?: ViewProps;
+};
+
+const TouchableWrapper: React.FC<{
+  onPress?: TouchableHighlightProps["onPress"];
+  touchableProps?: Omit<TouchableHighlightProps, "onPress" | "underlayColor">;
+  wrapperProps?: ViewProps;
+  children?: React.ReactNode;
+}> = ({ onPress, touchableProps, wrapperProps, children }) => {
+  if (onPress) {
+    return (
+      <TouchableHighlight
+        onPress={onPress}
+        underlayColor={Colors.outros.hover}
+        {...touchableProps}
+      >
+        <View {...wrapperProps}>{children}</View>
+      </TouchableHighlight>
+    );
+  }
+  return <View {...wrapperProps}>{children}</View>;
+};
+
+export const CardHeader = ({
+  children,
+  onPress,
+  touchableProps,
+  wrapperProps,
+}: PlaceholderProps) => {
   return (
-    <SafeAreaView className="flex flex-1 w-full gap-3 overflow-hidden justify-between">
-      <Image
-        className={cn(
-          "self-center w-44 h-44 rounded-lg",
-          slots?.image?.className
-        )}
-        resizeMode="stretch"
-        source={image}
-      />
-      <View className="justify-center gap-2">
-        <View>
-          {description && (
-            <Text
-              numberOfLines={2}
-              className={cn(
-                "text-sm text-gray-500 ",
-                slots?.description?.className
-              )}
-            >
-              {description}
-            </Text>
-          )}
-          {title && (
-            <Text
-              numberOfLines={1}
-              className={cn("text-lg font-semibold", slots?.title?.className)}
-            >
-              {title}
-            </Text>
-          )}
-        </View>
-        <View>
-          <Button
-            className="rounded-full"
-            color="main"
-            fullWidth
-            text="Acessar"
-            onPress={() => {
-              router.push({
-                pathname: "/tela-propriedade",
-                params: {
-                  id: pathname,
-                  propriedade: title,
-                },
-              });
-            }}
-          />
-        </View>
-      </View>
-    </SafeAreaView>
+    <TouchableWrapper
+      onPress={onPress}
+      touchableProps={touchableProps}
+      wrapperProps={wrapperProps}
+    >
+      {children}
+    </TouchableWrapper>
+  );
+};
+
+export const CardContent = ({
+  children,
+  onPress,
+  touchableProps,
+  wrapperProps,
+}: PlaceholderProps) => {
+  return (
+    <TouchableWrapper
+      onPress={onPress}
+      touchableProps={touchableProps}
+      wrapperProps={wrapperProps}
+    >
+      {children}
+    </TouchableWrapper>
+  );
+};
+
+export const CardFooter = ({
+  children,
+  onPress,
+  touchableProps,
+  wrapperProps,
+}: PlaceholderProps) => {
+  return (
+    <TouchableWrapper
+      onPress={onPress}
+      touchableProps={touchableProps}
+      wrapperProps={wrapperProps}
+    >
+      {children}
+    </TouchableWrapper>
+  );
+};
+
+const Card = ({ children, onPress, touchableProps }: CardProps) => {
+  return (
+    <TouchableHighlight
+      className="flex-1 m-2 p-2 bg-white rounded-2xl active:bg-outros-hover"
+      underlayColor={Colors.outros.hover}
+      onPress={onPress}
+      {...touchableProps}
+    >
+      <SafeAreaView className="flex flex-1 w-full gap-3 overflow-hidden justify-between">
+        {children}
+      </SafeAreaView>
+    </TouchableHighlight>
   );
 };
 
