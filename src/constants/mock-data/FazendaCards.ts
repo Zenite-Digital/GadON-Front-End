@@ -11,6 +11,12 @@
 //   status: 'ativo' | 'inativo' | 'manutencao';
 // };
 
+export const proprietarios = [
+  { id: 'p1', nome: 'João Silva' },
+  { id: 'p2', nome: 'Maria Souza' },
+  { id: 'p3', nome: 'Carlos Almeida' },
+];
+
 export default [
   {
     id: '1',
@@ -22,7 +28,8 @@ export default [
     custoHectare: 850,
     receitaEstimada: 25600,
     dataInicio: "2024-01-15",
-    status: 'ativo' as const
+    status: 'ativo' as const,
+    proprietario: 'p1'
   },
   {
     id: '2', 
@@ -34,7 +41,8 @@ export default [
     custoHectare: 920,
     receitaEstimada: 18200,
     dataInicio: "2024-02-10",
-    status: 'ativo' as const
+    status: 'ativo' as const,
+    proprietario: 'p1'
   },
   {
     id: '3',
@@ -46,7 +54,8 @@ export default [
     custoHectare: 750,
     receitaEstimada: 42000,
     dataInicio: "2024-01-08",
-    status: 'ativo' as const
+    status: 'ativo' as const,
+    proprietario: 'p2'
   },
   {
     id: '4',
@@ -58,7 +67,8 @@ export default [
     custoHectare: 800,
     receitaEstimada: 33000,
     dataInicio: "2024-03-01",
-    status: 'ativo' as const
+    status: 'ativo' as const,
+    proprietario: 'p3'
   },
   {
     id: '5',
@@ -70,7 +80,8 @@ export default [
     custoHectare: 1050,
     receitaEstimada: 19500,
     dataInicio: "2024-02-20",
-    status: 'manutencao' as const
+    status: 'manutencao' as const,
+    proprietario: 'p2'
   },
   {
     id: '6',
@@ -82,6 +93,7 @@ export default [
     custoHectare: 780,
     receitaEstimada: 38500,
     dataInicio: "2024-01-22",
-    status: 'ativo' as const
+    status: 'ativo' as const,
+    proprietario: 'p3'
   }
-] 
+]
