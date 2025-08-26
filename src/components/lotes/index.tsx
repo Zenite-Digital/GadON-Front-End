@@ -15,9 +15,10 @@ import ChevronBaixo from "@assets/icons/ChevronBaixo";
 import ChevronCima from "@assets/icons/ChevronCima";
 import Colors from "@constants/Colors";
 import { useQuery } from "@tanstack/react-query";
-import { findAllLotes } from "src/services/lotes.api";
+import { findAllLotes, findAllLotesByFazendaId } from "src/services/lotes.api";
 import { useIsFocused } from "@react-navigation/native";
 import { LoteResponseDTO } from "src/types/dtos/response/lote.dto";
+import { useLocalSearchParams } from "expo-router";
 
 const { width } = Dimensions.get("window");
 const isWeb = Platform.OS === "web";
@@ -33,13 +34,15 @@ type Lote = {
 };
 
 export default function LotesList() {
+  const params = useLocalSearchParams<{ id?: string }>();
   const [expanded, setExpanded] = useState<string | null>(null);
   const isFocused = useIsFocused();
 
   const { data: lotesData } = useQuery({
-    queryKey: ["properties", "component"],
-    queryFn: findAllLotes,
+    queryKey: ["properties", "lotes", params.id],
+    queryFn: () => findAllLotesByFazendaId(params.id!),
     subscribed: isFocused,
+    enabled: params.id !== undefined,
   });
 
   const handleExpand = (id: string) => {

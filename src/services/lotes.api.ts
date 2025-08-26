@@ -16,6 +16,20 @@ export const findAllLotes = async (): Promise<LoteResponseDTO[]> => {
   return data;
 };
 
+export const findAllLotesByFazendaId = async (fazendaId: string) => {
+  const response = await api.get<LoteResponseDTO>(
+    LOTES_URL + `/fazenda/${fazendaId}`
+  );
+  const { data, status } = response;
+
+  if (status !== 200) {
+    toast.error("Erro ao listar os lotes da fazenda");
+    throw new Error(`Failed to fetch lotes by fazenda ${fazendaId}`);
+  }
+
+  return data;
+};
+
 export const getLote = async (id: string): Promise<LoteResponseDTO> => {
   const response = await api.get(`${LOTES_URL}/${id}`);
   const { data, status } = response;
