@@ -7,3 +7,9 @@ export async function addAnimalsToDb() {
 }
 
 export default { addAnimalsToDb };
+
+export async function updateAnimal(animal: any) {
+  // Placeholder para atualização de animal
+  console.log('updateAnimal chamado', animal);
+  return Promise.resolve({ success: true, animal });
+}
