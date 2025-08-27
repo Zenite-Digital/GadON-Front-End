@@ -2,8 +2,8 @@ import React from "react";
 import { View, TouchableOpacity, Text, Platform, Dimensions } from "react-native";
 import { styles } from "@components/lotes/styles";
 import { useRouter } from "expo-router";
-import { Feather } from "@expo/vector-icons";
 import { iconSize } from "@assets/icons/constants";
+import { addAnimalsToDb } from "@utils/animals.crud";
 
 const { width } = Dimensions.get('window');
 const isWeb = Platform.OS === 'web';
@@ -16,19 +16,33 @@ export default function ExportButton() {
     router.push("/exportar-relatorio");
   };
 
+  const handleAddAnimals = async () => {
+    try {
+      await addAnimalsToDb();
+    } catch (err) {
+      console.error("Erro ao adicionar animais", err);
+    }
+  };
+
   return (
     <View style={styles.footer}>
       <TouchableOpacity
-        style={styles.exportButton}
+        style={styles.exportButtonSmall}
         onPress={handleExport}
         activeOpacity={0.8}
         accessibilityLabel="Exportar relatório dos lotes"
         accessibilityHint="Toque para abrir a tela de exportação"
       >
-        <Feather name="file-text" size={iconSize.md} color={"#fff"} />
-        <Text style={[styles.exportButtonText, !isWeb && { marginLeft: 8 }]}>
-          {isDesktop ? "Exportar relatório" : "Exportar relatório"}
-        </Text>
+        <Text style={[styles.exportButtonText]}>Exportar</Text>
+  </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={handleAddAnimals}
+        activeOpacity={0.8}
+        accessibilityLabel="Adicionar"
+        accessibilityHint="Toque para adicionar animais ao banco de dados"
+      >
+        <Text style={styles.addButtonText}>Adicionar</Text>
       </TouchableOpacity>
     </View>
   );

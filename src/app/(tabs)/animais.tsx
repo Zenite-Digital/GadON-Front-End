@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { View, Text, ScrollView } from "react-native";
 import Button from "@components/button";
+import ExportButton from "@components/export-button";
 import animalsData from "@components/animals/mocks/animals.mocks";
 import AnimalFilters from "@components/animals/animals-filter";
 import AnimalList from "@components/animals/animals-list";
@@ -72,16 +73,8 @@ export default function Animais() {
         </View>
       </ScrollView>
 
-      {/* Botão de exportar fixo no bottom */}
-      <View className="absolute bottom-6 left-6 right-6">
-        <Button
-          text="Exportar relatório"
-          variant="solid"
-          color="main"
-          fullWidth
-          onPress={() => console.log("Exportar relatório")}
-        />
-      </View>
+  {/* Footer com ações: exportar (menor) à esquerda e adicionar animais à direita */}
+  <ExportButton />
     </View>
   );
 }

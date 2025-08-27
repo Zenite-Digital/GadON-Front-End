@@ -8,6 +8,8 @@ import Celeiro from "@assets/icons/Celeiro";
 import ChevronBaixo from "@assets/icons/ChevronBaixo";
 import ChevronCima from "@assets/icons/ChevronCima";
 import Colors from "@constants/Colors";
+import ExportButton from "@components/export-button";
+import { addAnimalsToDb } from "@utils/animals.crud";
 
 const { width } = Dimensions.get('window');
 const isWeb = Platform.OS === 'web';
@@ -109,6 +111,8 @@ export default function LotesList() {
             />
             <Text style={styles.editButtonText}>Editar</Text>
           </TouchableOpacity>
+
+          {/* ...existing code... */}
         </View>
       )}
     </View>
