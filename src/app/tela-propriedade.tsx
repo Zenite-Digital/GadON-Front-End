@@ -105,7 +105,7 @@ export default function ProprietiesScreen() {
                     variant="solid"
                     color="danger"
                     className=" rounded-3xl flex align-middle h-5 w-20 items-center justify-center self-center  p-8"
-                    Icon={<Lixo stroke="#ffffff" width={20} height={20} />}
+                    Icon={<FontAwesomeIcon name="trash-o" color="white" />}
                     onPress={() => {
                         setModalVisible(true);
                     }}
