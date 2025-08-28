@@ -41,3 +41,20 @@ export const getLote = async (id: string): Promise<LoteResponseDTO> => {
 
   return data;
 };
+
+export const findLotesByQuery = async (query: {
+  nome?: string;
+  fazendaId?: string;
+}) => {
+  const response = await api.get<LoteResponseDTO[]>(`${LOTES_URL}/search`, {
+    params: { ...query },
+  });
+  const { data, status } = response;
+
+  if (status !== 200) {
+    toast.error(`Erro ao buscar lotes com query`);
+    throw new Error("Failed to fetch lotes by name");
+  }
+
+  return data;
+};

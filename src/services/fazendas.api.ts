@@ -27,3 +27,17 @@ export const getFazenda = async (id: string): Promise<FazendaDTO> => {
 
   return data;
 };
+
+export const findFazendasByQuery = async (query: { nome?: string }) => {
+  const response = await api.get<FazendaDTO[]>(`${FAZENDAS_URL}/search`, {
+    params: { ...query },
+  });
+  const { data, status } = response;
+
+  if (status !== 200) {
+    toast.error(`Erro ao buscar fazendas com o nome ${query.nome}`);
+    throw new Error("Failed to fetch fazendas by name");
+  }
+
+  return data;
+};
