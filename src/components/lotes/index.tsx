@@ -13,6 +13,7 @@ const { width } = Dimensions.get('window');
 const isWeb = Platform.OS === 'web';
 const isDesktop = isWeb && width > 1024;
 const isTablet = isWeb && width > 768 && width <= 1024;
+const isMobile = isWeb && width <= 768;
 
 type Lote = {
   id: number;
@@ -31,23 +32,20 @@ export default function LotesList() {
   };
 
   const handleNavigateToLote = (id: number) => {
-    // TODO: Implementar navegação para detalhes do lote
     console.log(`Navegar para lote ${id}`);
-    // router.push({ pathname: "/dados-lotes", params: { loteId: id } });
   };
 
   const handleEdit = (id: number) => {
-    // Editar lote
-  //   router.push(`/lotes/${id}`);
+    // editar
   };
 
   const renderItem = ({ item }: { item: Lote }) => (
-    <View style={[styles.card, expanded === item.id && styles.cardExpanded]}>
-      <View style={styles.cardHeader}>
+    <View className="w-full" style={[styles.card, expanded === item.id && styles.cardExpanded]}>
+      <View style={styles.cardHeader} className="w-full">
         <TouchableOpacity 
           onPress={() => handleNavigateToLote(item.id)} 
+          className="flex-row"
           style={{ 
-            flexDirection: 'row', 
             flex: 1, 
             alignItems: 'center', 
             marginRight: 10
@@ -67,6 +65,7 @@ export default function LotesList() {
             </Text>
           </View>
         </TouchableOpacity>
+
         <TouchableOpacity 
           onPress={() => handleExpand(item.id)}
           style={{
@@ -76,20 +75,21 @@ export default function LotesList() {
           activeOpacity={0.6}
         >
           {expanded === item.id ? (
-          <ChevronCima 
-            width={isDesktop ? 28 : 22} 
-            height={isDesktop ? 28 : 22} 
-            color={Colors.brand.dark} 
-          />
-        ) : (
-          <ChevronBaixo 
-            width={isDesktop ? 28 : 22} 
-            height={isDesktop ? 28 : 22} 
-            color={Colors.brand.dark} 
-          />
-        )}
+            <ChevronCima 
+              width={isDesktop ? 28 : 22} 
+              height={isDesktop ? 28 : 22} 
+              color={Colors.brand.dark} 
+            />
+          ) : (
+            <ChevronBaixo 
+              width={isDesktop ? 28 : 22} 
+              height={isDesktop ? 28 : 22} 
+              color={Colors.brand.dark} 
+            />
+          )}
         </TouchableOpacity>
       </View>
+
       {expanded === item.id && (
         <View style={styles.cardContent}>
           <Image 
@@ -115,7 +115,7 @@ export default function LotesList() {
   );
 
   return (
-    <View style={{ flex: 1 }}>
+    <View className="flex-1 bg-white">
       <FlatList
         data={lotes}
         keyExtractor={item => item.id.toString()}
@@ -127,6 +127,7 @@ export default function LotesList() {
           alignSelf: 'center',
           width: '100%',
         }}
+        className="w-full"
         showsVerticalScrollIndicator={!isWeb}
         numColumns={isDesktop ? 2 : 1}
         columnWrapperStyle={isDesktop ? { 

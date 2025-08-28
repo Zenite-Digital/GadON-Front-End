@@ -1,11 +1,13 @@
 import React, { useCallback } from "react";
 import { Tabs, useRouter, ScreenProps } from "expo-router";
+import { View } from "react-native";
 
 import { useClientOnlyValue } from "@hooks/useClientOnlyValue";
 
 import "../../../global.css";
 import TabBarIcon from "@components/tab-bar-icon";
-import { Casa, Vaca, Chat, Sino, Usuario } from "@assets/icons";
+import { Relatorio } from "@assets/icons/Relatorio";
+import { Casa, Vaca, Chat, Sino, Usuario} from "@assets/icons";
 import FontAwesomeIcon from "@components/font-awesome-icon";
 import Colors from "@constants/Colors";
 
@@ -109,6 +111,23 @@ export default function TabLayout() {
           ),
         })}
       />
+
+      <Tabs.Screen
+        name="exportar-relatorio"
+        {...createScreenOptions({
+          title: "",
+          headerTitle: "Exportar Relatório",
+          tabBarIcon: ({ color }: { color: string }) => {
+            const active = getIconActive(color);
+            <TabBarIcon
+              icon={Relatorio}
+              name="Relatório"
+              active={getIconActive(color)}
+            />
+            return <TabBarIcon icon={Relatorio} name="Exportar" active={active} />;
+          },
+        })}
+      />
       <Tabs.Screen
         name="notificacoes"
         {...createScreenOptions({
@@ -137,14 +156,15 @@ export default function TabLayout() {
           ),
         })}
       />
-      <Tabs.Screen
+      
+      {/* <Tabs.Screen
         name="dashboard"
         {...createScreenOptions({
           title: "",
           headerTitle: "Finanças",
           tabBarIcon: () => <FontAwesomeIcon name="money" />,
         })}
-      />
+      /> */}
     </Tabs>
   );
 }
