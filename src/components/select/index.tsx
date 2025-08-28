@@ -30,7 +30,7 @@ export const Select: React.FC<SelectProps> = ({
     <View>
       <View>
         {title && (
-          <Text className="mb-2 ml-2">
+          <Text className={cn("mb-2 ml-2", hasError ? "text-red-500" : "")}>
             {title}
             {required && <Text className="text-red-500"> *</Text>}
           </Text>

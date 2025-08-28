@@ -16,6 +16,7 @@ type DatePickerProps = {
   error?: FormikErrors<Date>;
   value?: Date;
   onChange?: (date: Date) => void;
+  title?: string;
 };
 
 const DatePicker: React.FC<DatePickerProps> = ({
@@ -23,6 +24,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   value: valueProp,
   onChange,
   required,
+  title,
 }) => {
   const [value, setValue] = useState(valueProp);
   const [datePickerVisible, setDatePickerVisible] = useState<boolean>(false);
@@ -40,14 +42,19 @@ const DatePicker: React.FC<DatePickerProps> = ({
   return (
     <View>
       <View>
-        <Text className="mb-2 ml-2">
-          Data de Nascimento
-          {required && <Text className="text-red-500"> *</Text>}
-        </Text>
+        {title && (
+          <Text className="mb-2 ml-2">
+            {title}
+            {required && <Text className="text-red-500"> *</Text>}
+          </Text>
+        )}
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => setDatePickerVisible(true)}
-          className="border border-gray-300 rounded-lg p-4 text-base bg-white font-inter-regular"
+          className={cn(
+            "border rounded-lg p-4 text-base bg-white font-inter-regular",
+            hasError ? "border-red-500" : "border-gray-300"
+          )}
         >
           <Text>{value?.toLocaleDateString()}</Text>
         </TouchableOpacity>
