@@ -49,7 +49,7 @@ export const Select: React.FC<SelectProps> = ({
           ) : (
             <Text className="text-gray-400">{placeholder}</Text>
           )}
-          {isOpen ? <ChevronBaixo /> : <ChevronCima />}
+          {isOpen ? <ChevronCima /> : <ChevronBaixo />}
         </TouchableOpacity>
         {isOpen && (
           <View className="z-50 w-full bg-white border border-gray-300 rounded-b-lg border-t-0">
@@ -68,6 +68,7 @@ export const Select: React.FC<SelectProps> = ({
             ))}
           </View>
         )}
+        {hasError && <Text className="text-sm color-red-500">{error}</Text>}
       </View>
     </View>
   );
