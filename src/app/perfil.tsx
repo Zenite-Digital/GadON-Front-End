@@ -1,5 +1,6 @@
 import { Edit } from "@assets/icons";
 import Button from "@components/button";
+import FontAwesomeIcon from "@components/font-awesome-icon";
 import ModalConfirmacao from "@components/modals/confirmation.modal"; // Adicione esta importação
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -118,6 +119,7 @@ export default function Perfil() {
       <ModalConfirmacao
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
+        icon={<FontAwesomeIcon name="user-o" color="red" className="text-red-700" />}
         onConfirm={() => {
           setModalVisible(false);
           router.push("/tela-login");
