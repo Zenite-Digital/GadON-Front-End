@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, Image } from "react-native";
+import { View, Text } from "react-native";
 import { Vaca } from "@assets/icons";
 import { getCalfAge } from "../../utils/data";
 import {
@@ -16,7 +16,7 @@ export default function AnimalList({ items }: AnimalListProps) {
     const elementosAnimais = animais.map((item) => (
       <View
         key={`animal-${item.id}-fazenda-${fazenda.id}`}
-        className="bg-white rounded-lg p-4 mb-3 border border-gray-200"
+        className="bg-white rounded-lg p-4 mb-3 border border-gray-200 "
       >
         <View className="flex-row items-center">
           <View className="mr-4">
@@ -55,12 +55,8 @@ export default function AnimalList({ items }: AnimalListProps) {
   }
 
   return (
-    <FlatList
-      data={items}
-      keyExtractor={(item) => item.fazenda.id}
-      renderItem={({ item }) => renderAnimalItem(item)}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: 100 }}
-    />
+    <View className="grid gap-x-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 ">
+      {items.map((item) => renderAnimalItem(item))}
+    </View>
   );
 }
