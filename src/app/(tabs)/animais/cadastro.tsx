@@ -191,7 +191,7 @@ export default function CadastroAnimais() {
                 <Button
                   variant="solid"
                   color="secondary"
-                  className="max-w-xs h-12"
+                  className="w-2/5 max-w-xs h-12"
                   text="Cancelar"
                   onPress={() => router.navigate("/animais")}
                   disabled={isCreatingAnimal}
@@ -200,7 +200,7 @@ export default function CadastroAnimais() {
                 <Button
                   variant="solid"
                   color="main"
-                  className="max-w-xs h-12"
+                  className="w-2/5 max-w-xs h-12"
                   text="Cadastrar"
                   onPress={() => handleSubmit()}
                   disabled={isCreatingAnimal}
