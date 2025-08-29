@@ -52,13 +52,20 @@ export default function Animais() {
         </View>
       </ScrollView>
 
-      <View className="absolute bottom-6 right-6 m-0 p-0">
+      <View className="absolute bottom-6 right-6 m-0 p-0 flex flex-row gap-4">
         <Button
-          Icon={<Add stroke={"#fff"} fill={"#fff"} iconSize="lg" />}
           variant="solid"
-          className="rounded-xl"
+          className="rounded-xl text-lg p-4"
+          color="main"
+          onPress={() => router.push("/exportar-relatorio")}
+          text="Exportar Relatório"
+        />
+        <Button
+          variant="solid"
+          className="rounded-xl text-lg p-4"
           color="main"
           onPress={() => router.push("/animais/cadastro")}
+          text="Adicionar"
         />
       </View>
     </View>
