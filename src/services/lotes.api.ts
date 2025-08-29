@@ -17,7 +17,7 @@ export const findAllLotes = async (): Promise<LoteResponseDTO[]> => {
 };
 
 export const findAllLotesByFazendaId = async (fazendaId: string) => {
-  const response = await api.get<LoteResponseDTO>(
+  const response = await api.get<LoteResponseDTO[]>(
     LOTES_URL + `/fazenda/${fazendaId}`
   );
   const { data, status } = response;
