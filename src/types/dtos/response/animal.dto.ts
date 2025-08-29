@@ -7,7 +7,6 @@ export enum AnimalSexo {
 }
 
 export enum AnimalStatus {
-  PROPRIEDADE = "PROPRIEDADE",
   VENDIDO = "VENDIDO",
   MORTO = "MORTO",
   VIVO = "VIVO",

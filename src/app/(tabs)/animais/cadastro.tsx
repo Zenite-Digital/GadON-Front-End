@@ -14,6 +14,7 @@ import { findLotesByQuery } from "src/services/lotes.api";
 import { findFazendasByQuery } from "src/services/fazendas.api";
 import { FazendaDTO } from "src/types/dtos/fazenda.dto";
 import { Checkbox } from "@components/checkbox";
+import { createAnimal } from "src/services/animais.api";
 
 const AnimalSchema = yup.object().shape({
   dataNascimento: yup.date().required("Campo Obrigatório").default(new Date()),
@@ -30,16 +31,14 @@ const AnimalSchema = yup.object().shape({
     .string()
     .uuid("Id de Lote inválido")
     .required("Campo Obrigatório"),
-  maeId: yup.string().uuid("Id de Animal Inválido"),
 });
 
-const defaultAnimal = {
+const defaultAnimal: Partial<yup.InferType<typeof AnimalSchema>> = {
   dataNascimento: new Date(),
   vacinado: false,
-  status: "",
-  sexo: "",
+  status: undefined,
+  sexo: undefined,
   loteId: "",
-  maeId: "",
 };
 
 export default function CadastroAnimais() {
@@ -48,9 +47,6 @@ export default function CadastroAnimais() {
   const [fazendaSelecionada, setFazendaSelecionada] = useState<
     FazendaDTO | undefined
   >();
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
 
   const {
     mutate: findLotesByQueryFn,
@@ -70,6 +66,22 @@ export default function CadastroAnimais() {
     mutationFn: findFazendasByQuery,
   });
 
+  const { mutate: createAnimalFn, isPending: isCreatingAnimal } = useMutation({
+    mutationKey: ["create-animal"],
+    mutationFn: createAnimal,
+  });
+
+  const onSubmit = async (
+    data: Partial<yup.InferType<typeof AnimalSchema>>
+  ) => {
+    try {
+      await createAnimalFn(data as yup.InferType<typeof AnimalSchema>);
+      router.navigate("/animais");
+    } catch (e) {
+      console.error("Error creating animal:", e);
+    }
+  };
+
   return (
     <View className="flex-1 bg-white w-full py-4 px-6">
       <View className="flex flex-row w-full  justify-between">
@@ -88,7 +100,7 @@ export default function CadastroAnimais() {
         <Formik
           validationSchema={AnimalSchema}
           onSubmit={onSubmit}
-          initialValues={defaultAnimal}
+          initialValues={defaultAnimal as any}
         >
           {({ handleSubmit, setFieldValue, values, errors }) => (
             <>
@@ -167,10 +179,6 @@ export default function CadastroAnimais() {
                   options={[
                     { label: "Morto", value: AnimalStatus.MORTO },
                     { label: "Vendido", value: AnimalStatus.VENDIDO },
-                    {
-                      label: "Na Propriedade",
-                      value: AnimalStatus.PROPRIEDADE,
-                    },
                     { label: "Vivo", value: AnimalStatus.VIVO },
                   ]}
                   value={values.status}
@@ -186,6 +194,7 @@ export default function CadastroAnimais() {
                   className="max-w-xs h-12"
                   text="Cancelar"
                   onPress={() => router.navigate("/animais")}
+                  disabled={isCreatingAnimal}
                   fullWidth
                 />
                 <Button
@@ -194,6 +203,7 @@ export default function CadastroAnimais() {
                   className="max-w-xs h-12"
                   text="Cadastrar"
                   onPress={() => handleSubmit()}
+                  disabled={isCreatingAnimal}
                   fullWidth
                 />
               </View>
