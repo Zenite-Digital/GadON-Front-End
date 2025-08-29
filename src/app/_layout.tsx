@@ -7,14 +7,15 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { TouchableOpacity } from "react-native";
 import ChevronEsquerda from "@assets/icons/ChevronEsquerda";
-
-import "../../global.css";
-import { useGlobalProps } from "@hooks/useGlobalProps";
-
+import { Toaster } from "sonner-native";
 export { ErrorBoundary } from "expo-router";
 
+import "../../global.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: "tela-login",
 };
 
@@ -41,7 +42,12 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RootLayoutNav />
+      <Toaster />
+    </QueryClientProvider>
+  );
 }
 
 function RootLayoutNav() {

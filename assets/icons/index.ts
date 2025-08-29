@@ -10,3 +10,6 @@ export { default as Lixo } from "./Lixo";
 export { default as Sino } from "./Sino";
 export { default as Usuario } from "./Usuario";
 export { default as Vaca } from "./Vaca";
+export { default as Add } from "./Add";
+export { default as Loader } from "./Loader";
+export { default as Check } from "./Check";
