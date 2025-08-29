@@ -1,8 +1,9 @@
 import { Casa, Lixo } from "@assets/icons";
 import Button from "@components/button";
 import FontAwesomeIcon from "@components/font-awesome-icon";
+import ModalConfirmacao from "@components/modals/confirmation.modal";
 import { router, useLocalSearchParams, useRouter } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import { Alert } from "react-native";
 import {
   Dimensions,
@@ -17,6 +18,7 @@ import {
 export default function ProprietiesScreen() {
   const params = useLocalSearchParams<{ id?: string; propriedade?: string }>();
   const router = useRouter();
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <ScrollView
@@ -46,7 +48,7 @@ export default function ProprietiesScreen() {
           </View>
         </View>
 
-        <view className=" align-middle items-center justify-center mb-4 xl:flex-row flex-col w-full self-center">
+        <View className=" align-middle items-center justify-center mb-4 flex-col w-full self-center">
           <Button
             fullWidth={true}
             text="Visão Geral"
@@ -91,38 +93,31 @@ export default function ProprietiesScreen() {
               });
             }}
           ></Button>
-        </view>
+        </View>
 
         <View className="mb-10"></View>
         <Button
           variant="solid"
           color="danger"
-          className=" rounded-3xl flex align-middle h-5 items-center justify-center self-center w-full p-8 h-auto"
-          Icon={<Lixo stroke="#ffffff" iconSize="md" />}
+          className=" rounded-3xl flex align-middle h-5 w-20 items-center justify-center self-center  p-8"
+          Icon={<FontAwesomeIcon name="trash-o" color="white" />}
           onPress={() => {
-            Alert.alert(
-              "Excluir Propriedade",
-              "Você tem certeza que deseja excluir esta propriedade?",
-              [
-                {
-                  text: "Cancelar",
-                  style: "cancel",
-                },
-                {
-                  text: "Excluir",
-                  style: "destructive",
-                  onPress: () => {
-                    console.log("Propriedade excluída");
-                  },
-                },
-              ],
-              { cancelable: true }
-            );
+            setModalVisible(true);
           }}
         ></Button>
       </View>
-
-      {/* <view className="p-10"></view> */}
+      <ModalConfirmacao
+        visible={modalVisible}
+        icon={<FontAwesomeIcon name="exclamation-triangle" color="red" />}
+        onClose={() => setModalVisible(false)}
+        onConfirm={() => {
+          setModalVisible(false);
+          Alert.alert("Propriedade deletada");
+          router.push("/(tabs)");
+        }}
+        title="Deletar Propriedade"
+        message="Tem certeza que deseja deletar esta propriedade? Esta ação não pode ser desfeita."
+      ></ModalConfirmacao>
     </ScrollView>
   );
 }
