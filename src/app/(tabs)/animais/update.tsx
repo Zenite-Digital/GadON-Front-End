@@ -1,4 +1,4 @@
-import { ChevronEsquerda } from "@assets/icons";
+import { ChevronEsquerda, Vaca } from "@assets/icons";
 import Button from "@components/button";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import {
@@ -16,6 +16,9 @@ import {
     Pressable,
 } from "react-native";
 import { useState, useEffect } from "react";
+import ModalConfirmacao from "@components/modals/confirmation.modal";
+import {Save} from "lucide-react-native"
+import FontAwesomeIcon from "@components/font-awesome-icon";
 
 type StatusType = "VIVO" | "VENDIDO" | "MORTO";
 type SexoType = "M" | "F";
@@ -99,6 +102,7 @@ export default function UpdateAnimal() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         if (!animalId) {
@@ -280,7 +284,9 @@ export default function UpdateAnimal() {
 
                     <View className="pt-4 mt-4 border-t border-slate-200">
                         <Button
-                            onPress={handleUpdate}
+                            onPress={
+                                () => setModalVisible(true)
+                            }
                             text={saving ? "Salvando..." : "Salvar alterações"}
                             disabled={saving}
                             className="w-full"
@@ -299,6 +305,19 @@ export default function UpdateAnimal() {
                     <Text className="text-center text-slate-600">Nenhum dado encontrado para exibir.</Text>
                 </View>
             )}
+
+            <ModalConfirmacao
+                visible={modalVisible}
+                icon= {<FontAwesomeIcon name="save" color="green" className="w-6 h-6"/>}
+                title="Salvar alterações"
+                message="Tem certeza que deseja salvar as alterações?"
+                onConfirm={() => {
+                    handleUpdate();
+                    setModalVisible(false);
+                }}
+                onClose={() => setModalVisible(false)}
+                confirmColor="bg-green-600"
+            />
         </ScrollView>
     );
 }
