@@ -42,8 +42,6 @@ const defaultAnimal: Partial<yup.InferType<typeof AnimalSchema>> = {
 };
 
 export default function CadastroAnimais() {
-  const [queryLotes, setQueryLotes] = useState("");
-  const [queryFazendas, setQueryFazendas] = useState("");
   const [fazendaSelecionada, setFazendaSelecionada] = useState<
     FazendaDTO | undefined
   >();
@@ -53,7 +51,7 @@ export default function CadastroAnimais() {
     data: lotesData,
     isPending: isLotePending,
   } = useMutation({
-    mutationKey: ["create-animal", "lotes", fazendaSelecionada?.id, queryLotes],
+    mutationKey: ["create-animal", "lotes", fazendaSelecionada?.id],
     mutationFn: findLotesByQuery,
   });
 
@@ -62,7 +60,7 @@ export default function CadastroAnimais() {
     data: fazendasData,
     isPending: isFazendaPending,
   } = useMutation({
-    mutationKey: ["create-animal", "fazendas", queryFazendas],
+    mutationKey: ["create-animal", "fazendas"],
     mutationFn: findFazendasByQuery,
   });
 
@@ -115,11 +113,12 @@ export default function CadastroAnimais() {
                     []
                   }
                   value={fazendaSelecionada?.id}
-                  onChange={(value) =>
+                  onChange={(value) => {
                     setFazendaSelecionada(
                       fazendasData?.find((i) => i.id === value)
-                    )
-                  }
+                    );
+                    setFieldValue("loteId", "");
+                  }}
                   queryFn={(value) =>
                     findFazendasByQueryFn({
                       nome: value,
@@ -128,6 +127,7 @@ export default function CadastroAnimais() {
                   isQueryPending={isFazendaPending}
                 />
                 <AutoComplete
+                  key={values.loteId}
                   disabled={!fazendaSelecionada?.id}
                   title="Lote"
                   options={
