@@ -1,6 +1,7 @@
 import { LoteResponseDTO } from "src/types/dtos/response/lote.dto";
 import api from "./api";
 import { toast } from "sonner-native";
+import { CreateLoteDtoReq } from "src/types/dtos/req/lote.dto";
 
 const LOTES_URL = "/lotes";
 
@@ -57,4 +58,23 @@ export const findLotesByQuery = async (query: {
   }
 
   return data;
+};
+
+export const createLote = async (data: CreateLoteDtoReq) => {
+  try {
+    const response = await api.post<LoteResponseDTO>(LOTES_URL, data);
+    const { status } = response;
+
+    if (status !== 201) {
+      toast.error("Erro ao criar o lote");
+      console.log("status diferente de 200");
+      throw new Error("Failed to create lote:", response.request);
+    }
+
+    toast.success("Lote criado com sucesso!");
+    console.log(status);
+    return response.data;
+  } catch (e) {
+    console.error("Error creating lote:", e);
+  }
 };
