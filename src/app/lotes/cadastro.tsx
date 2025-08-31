@@ -5,16 +5,11 @@ import TextInput from "@components/text-input";
 import { router } from "expo-router";
 import * as yup from "yup";
 import { Formik } from "formik";
-import { CreateLoteDtoReq } from "src/types/dtos/req/lote.dto";
-import DatePicker from "@components/date-picker";
-import { Select } from "@components/select";
 import { AutoComplete } from "@components/auto-complete";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { findLotesByQuery } from "src/services/lotes.api";
 import { findFazendasByQuery } from "src/services/fazendas.api";
 import { FazendaDTO } from "src/types/dtos/fazenda.dto";
-import { Checkbox } from "@components/checkbox";
 import { createLote } from "src/services/lotes.api";
 import { useLocalSearchParams, useSearchParams } from "expo-router/build/hooks";
 
@@ -22,42 +17,24 @@ const LoteSchema = yup.object().shape({
   nome: yup.string().required("Campo Obrigatório").default(""),
 
   quantidadeAnimais: yup
-  .number()
-  .typeError("Informe um número")
-  .integer("Deve ser um número inteiro")
-  .min(1, "Deve ser pelo menos 1")
-  .required("Campo Obrigatório"),
+    .number()
+    .typeError("Informe um número")
+    .integer("Deve ser um número inteiro")
+    .min(1, "Deve ser pelo menos 1")
+    .required("Campo Obrigatório"),
 
   pastoId: yup
     .string()
     .uuid("Id do Pasto inválido"),
-    
 
   fazendaId: yup
     .string()
     .uuid("Id da Fazenda inválido")
     .required("Campo Obrigatório"),
-
-  // dataNascimento: yup.date().required("Campo Obrigatório").default(new Date()),
-  // vacinado: yup.boolean().required("Campo Obrigatório").default(false),
-  // status: yup
-  //   .mixed<AnimalStatus>()
-  //   .oneOf(Object.values(AnimalStatus))
-  //   .required("Campo Obrigatório"),
-  // sexo: yup
-  //   .mixed<AnimalSexo>()
-  //   .oneOf(Object.values(AnimalSexo))
-  //   .required("Campo Obrigatório"),
-  // loteId: yup
-  //   .string()
-  //   .uuid("Id de Lote inválido")
-  //   .required("Campo Obrigatório"),
 });
 
-
-
 export default function CadastroLote() {
-  const {fazendaId} = useLocalSearchParams<{fazendaId:string}>()
+  const { fazendaId } = useLocalSearchParams<{ fazendaId: string }>()
   const [fazendaSelecionada, setFazendaSelecionada] = useState<
     FazendaDTO | undefined
   >();
@@ -79,14 +56,14 @@ export default function CadastroLote() {
 
   const { mutate: createLoteFn, isPending: isCreatingLote } = useMutation({
     mutationKey: ["create-lote"],
-    mutationFn: createLote, //criar api para o lote
+    mutationFn: createLote,
   });
 
   const onSubmit = async (
     data: Partial<yup.InferType<typeof LoteSchema>>
   ) => {
     try {
-      if (data.pastoId === "")data.pastoId=undefined;
+      if (data.pastoId === "") data.pastoId = undefined;
       await createLoteFn(data as yup.InferType<typeof LoteSchema>);
       router.navigate("/lotes");
     } catch (e) {
@@ -143,7 +120,7 @@ export default function CadastroLote() {
                     <Text className="text-red-500 text-xs mt-1">{errors.quantidadeAnimais}</Text>
                   )}
                 </View>
-                              
+
                 <AutoComplete
                   title="Pasto"
                   options={
