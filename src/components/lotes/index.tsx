@@ -45,6 +45,8 @@ export default function LotesList() {
     enabled: params.id !== undefined,
   });
 
+  console.debug(params.id);
+
   const handleExpand = (id: string) => {
     setExpanded(expanded === id ? null : id);
   };
@@ -131,6 +133,15 @@ export default function LotesList() {
 
   return (
     <View style={{ flex: 1 }}>
+      {!lotesData?.length ? (
+      <View className="flex-1 justify-center items-center py-8">
+          <Celeiro iconSize="lg" stroke="#ccc" />
+          <Text className="text-gray-500 font-inter-regular mt-4 text-center">
+            Nenhum lote encontrado
+          </Text>
+        </View>
+
+      ) : (
       <FlatList
         data={lotesData}
         keyExtractor={(item) => `chave-lote-${item.id}`}
@@ -160,6 +171,7 @@ export default function LotesList() {
         maxToRenderPerBatch={isDesktop ? 20 : 10}
         windowSize={isDesktop ? 21 : 10}
       />
+      )}
     </View>
   );
 }
