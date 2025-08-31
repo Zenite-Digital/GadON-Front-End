@@ -1,26 +1,30 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import { useFonts } from "expo-font";
+import { router, Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
+import "react-native-reanimated";
+import { TouchableOpacity } from "react-native";
+import ChevronEsquerda from "@assets/icons/ChevronEsquerda";
+import { Toaster } from "sonner-native";
+export { ErrorBoundary } from "expo-router";
 
-import { useColorScheme } from '@hooks/useColorScheme';
+import "../../global.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-export {
-  ErrorBoundary,
-} from 'expo-router';
+const queryClient = new QueryClient();
 
 export const unstable_settings = {
-  initialRouteName: '(tabs)',
+  initialRouteName: "tela-login",
 };
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require('@assets/fonts/SpaceMono-Regular.ttf'),
+    InterRegular: require("@assets/fonts/Inter-Regular.otf"),
+    InterMedium: require("@assets/fonts/Inter-Medium.otf"),
     ...FontAwesome.font,
   });
 
@@ -38,27 +42,137 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RootLayoutNav />
+      <Toaster />
+    </QueryClientProvider>
+  );
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+    <ThemeProvider value={DefaultTheme}>
+      <Stack initialRouteName="tela-login">
+        <Stack.Screen
+          name="index"
+          options={{ headerShown: false }}
+          redirect={true}
+        />
+        <Stack.Screen
+          name="lotes"
+          options={({ navigation }) => ({
+            title: "Lotes",
+            headerShown: true,
+            headerTitleAlign: "center",
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => navigation.goBack()}
+                style={{ marginLeft: 10 }}
+              >
+                <ChevronEsquerda width={22} height={22} color="#000" />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+        <Stack.Screen name="tela-login" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen
-          name="atualizar-perfil"
+          name="cadastro-perfil"
           options={{
-            title: 'Meus Dados',
-            presentation: 'modal',
-            headerTitleAlign: 'center',
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="tela-propriedade"
+          options={{
+            title: "Minha propriedade",
+            headerTitleAlign: "center",
+            headerRight: () => (
+              <FontAwesome
+                name="gear"
+                size={24}
+                color="#000"
+                className="p-2 mr-2"
+                onPress={() => console.log("Menu pressed")} // Replace with your navigation logic
+              />
+            ),
+            headerStyle: {
+              borderBottomColor: "#005E24",
+            },
+          }}
+        />
+
+        <Stack.Screen
+          name="perfil"
+          options={{
+            title: "Meu Perfil",
+            headerTitleAlign: "center",
+            headerLeft: () => (
+              <FontAwesome
+                name="chevron-left"
+                size={20}
+                color="#000"
+                style={{ marginLeft: 20 }}
+                onPress={() => router.back()} // Adicione sua lógica de navegação
+              />
+            ),
             headerStyle: {
               borderBottomWidth: 2,
-              borderBottomColor: '#6DB388',
+              borderBottomColor: "#6DB388",
             },
             headerShadowVisible: false,
+          }}
+        />
+
+        {/* <Stack.Screen
+          name="atualizar-perfil"
+          options={{
+            title: "Meus Dados",
+            presentation: "modal",
+            headerTitleAlign: "center",
+            headerStyle: {
+              borderBottomWidth: 2,
+              borderBottomColor: "#6DB388",
+            },
+            headerShadowVisible: false,
+          }}
+        /> */}
+
+        <Stack.Screen
+          name="visao-geral"
+          options={{
+            title: "Visão Geral",
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: "#fff",
+              borderBottomWidth: 1,
+              borderBottomColor: "#e5e7eb",
+            },
+            headerTitleStyle: {
+              fontSize: 18,
+              fontWeight: "600",
+              color: "#000",
+            },
+            headerLeft: () => (
+              <FontAwesome
+                name="chevron-left"
+                size={20}
+                color="#000"
+                style={{ marginLeft: 10 }}
+                onPress={() => console.log("Back pressed")} // Adicione sua lógica de navegação
+              />
+            ),
+            headerRight: () => (
+              <FontAwesome
+                name="gear"
+                size={20}
+                color="#000"
+                style={{ marginRight: 10 }}
+                onPress={() => console.log("Settings pressed")} // Adicione sua lógica de navegação
+              />
+            ),
           }}
         />
       </Stack>

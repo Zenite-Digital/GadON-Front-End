@@ -1,0 +1,78 @@
+import { Animal } from "../animais.entidade";
+
+const animalsData: Animal[] = [
+  {
+    id: 1258,
+    brinco: "1258",
+    fazenda: "Fazenda Santa Luzia",
+    lote: "Lote 1",
+    sexo: "macho" as const,
+    idade: 2,
+    vacinado: true,
+  },
+  {
+    id: 458,
+    brinco: "458",
+    fazenda: "São Sebastião",
+    lote: "Lote 2",
+    sexo: "macho" as const,
+    idade: 2,
+    vacinado: true,
+  },
+  {
+    id: 1234,
+    brinco: "1234",
+    fazenda: "São Sebastião",
+    lote: "Lote 1",
+    sexo: "macho" as const,
+    idade: 2,
+    vacinado: true,
+  },
+  {
+    id: 968,
+    brinco: "968",
+    fazenda: "Fazenda Santa Luzia",
+    lote: "Lote 3",
+    sexo: "macho" as const,
+    idade: 2,
+    vacinado: true,
+  },
+  {
+    id: 1122,
+    brinco: "1122",
+    fazenda: "Fazenda Boa Vista",
+    lote: "Lote 1",
+    sexo: "femea" as const,
+    idade: 3,
+    vacinado: false,
+  },
+  {
+    id: 789,
+    brinco: "789",
+    fazenda: "Fazenda São João",
+    lote: "Lote 2",
+    sexo: "femea" as const,
+    idade: 1,
+    vacinado: true,
+  },
+  {
+    id: 345,
+    brinco: "345",
+    fazenda: "Fazenda Nova Esperança",
+    lote: "Lote 1",
+    sexo: "macho" as const,
+    idade: 4,
+    vacinado: false,
+  },
+  {
+    id: 567,
+    brinco: "567",
+    fazenda: "Fazenda Santa Maria",
+    lote: "Lote 3",
+    sexo: "femea" as const,
+    idade: 2,
+    vacinado: true,
+  },
+];
+
+export default animalsData;
