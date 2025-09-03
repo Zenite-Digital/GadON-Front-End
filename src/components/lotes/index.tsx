@@ -24,6 +24,7 @@ const { width } = Dimensions.get("window");
 const isWeb = Platform.OS === "web";
 const isDesktop = isWeb && width > 1024;
 const isTablet = isWeb && width > 768 && width <= 1024;
+const isMobile = isWeb && width <= 768;
 
 type Lote = {
   id: number;
@@ -105,6 +106,7 @@ export default function LotesList() {
           )}
         </TouchableOpacity>
       </View>
+
       {expanded === item.id && (
         <View style={styles.cardContent}>
           <Image

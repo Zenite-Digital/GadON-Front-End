@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from "react";
 import { Tabs, useRouter, ScreenProps } from "expo-router";
-
 import { useClientOnlyValue } from "@hooks/useClientOnlyValue";
 
 import "../../../global.css";
 import TabBarIcon from "@components/tab-bar-icon";
-import { Casa, Vaca, Chat, Sino, Usuario } from "@assets/icons";
+import { Relatorio } from "@assets/icons/Relatorio";
+import { Casa, Vaca, Sino, Usuario} from "@assets/icons";
 import FontAwesomeIcon from "@components/font-awesome-icon";
 import Colors from "@constants/Colors";
 import { TouchableOpacity, Image, useWindowDimensions, View, Pressable, ScrollView } from "react-native";
@@ -143,7 +143,7 @@ export default function TabLayout() {
           {...createScreenOptions({
             title: "",
             headerTitle: "Início",
-            tabBarIcon: ({ color }) => (
+            tabBarIcon: ({ color }: { color: string } ) => (
               <TabBarIcon
                 icon={Casa}
                 name="Inicio"
@@ -165,6 +165,21 @@ export default function TabLayout() {
                 active={getIconActive(color)}
               />
             ),
+          })}
+        />
+        <Tabs.Screen
+          name="exportar-relatorio"
+          {...createScreenOptions({
+            title: "",
+            headerTitle: "Relatorio",
+            tabBarIcon: ({ color }: { color: string }) => (
+              <TabBarIcon
+                icon={Relatorio}
+                name="Relatorio"
+                active={getIconActive(color)}
+              />
+            ),
+
           })}
         />
         <Tabs.Screen
