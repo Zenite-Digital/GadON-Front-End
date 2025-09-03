@@ -32,6 +32,7 @@ export default function Animais() {
     queryKey: ["animais", "agrupados", "fazenda"],
     queryFn: listAllAnimaisGroupedByFazenda,
     subscribed: isFocused,
+    enabled: isFocused,
     refetchOnWindowFocus: true,
   });
 
