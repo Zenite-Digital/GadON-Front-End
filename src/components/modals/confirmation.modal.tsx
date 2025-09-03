@@ -8,6 +8,7 @@ interface ModalConfirmacaoProps {
   title: string;
   message: string;
   icon?: React.ReactNode;
+  confirmColor?: string | "danger" | "main" | "success" | "warning" | "info"; 
 }
 
 export default function ModalConfirmacao({
@@ -17,6 +18,7 @@ export default function ModalConfirmacao({
   title,
   message,
   icon,
+  confirmColor,
 }: ModalConfirmacaoProps) {
   return (
     <Modal
@@ -38,7 +40,7 @@ export default function ModalConfirmacao({
               <Text className="text-center font-bold">Não</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className="bg-red-500 p-3 rounded flex-1 ml-2"
+              className={`${confirmColor} p-3 rounded flex-1 ml-2`}
               onPress={onConfirm}
             >
               <Text className="text-center font-bold text-white">Sim</Text>

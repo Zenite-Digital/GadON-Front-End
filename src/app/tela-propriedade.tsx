@@ -117,6 +117,7 @@ export default function ProprietiesScreen() {
         }}
         title="Deletar Propriedade"
         message="Tem certeza que deseja deletar esta propriedade? Esta ação não pode ser desfeita."
+        confirmColor="bg-red-600"
       ></ModalConfirmacao>
     </ScrollView>
   );

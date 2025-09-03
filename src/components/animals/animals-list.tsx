@@ -6,17 +6,27 @@ import {
   AnimalSexo,
   FazendaAnimaisDTO,
 } from "src/types/dtos/response/animal.dto";
+import { useRouter } from "expo-router";
 
 type AnimalListProps = {
   items: FazendaAnimaisDTO[];
 };
 
 export default function AnimalList({ items }: AnimalListProps) {
+  const router = useRouter();
   const renderAnimalItem = ({ fazenda, animais }: FazendaAnimaisDTO) => {
     const elementosAnimais = animais.map((item) => (
       <View
         key={`animal-${item.id}-fazenda-${fazenda.id}`}
         className="bg-white rounded-lg p-4 mb-3 border border-gray-200 "
+        onStartShouldSetResponder={() => true}
+        onResponderRelease={() => {
+          router.push({
+            pathname: `/animais/update`,
+            params: { animalId: item.id }
+          })
+        }}
+        accessibilityRole="button"
       >
         <View className="flex-row items-center">
           <View className="mr-4">

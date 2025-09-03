@@ -126,6 +126,7 @@ export default function Perfil() {
         }}
         title="Deseja sair?"
         message="Tem certeza de que deseja sair? Sua conta será desconectada."
+        confirmColor="bg-red-600"
       />
     </ScrollView>
   );
