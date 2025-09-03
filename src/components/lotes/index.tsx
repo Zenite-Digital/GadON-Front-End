@@ -42,10 +42,8 @@ export default function LotesList() {
     queryKey: ["properties", "lotes", params.id],
     queryFn: () => findAllLotesByFazendaId(params.id!),
     subscribed: isFocused,
-    enabled: params.id !== undefined,
+    enabled: params.id !== undefined && isFocused,
   });
-
-  console.debug(params.id);
 
   const handleExpand = (id: string) => {
     setExpanded(expanded === id ? null : id);
@@ -134,43 +132,42 @@ export default function LotesList() {
   return (
     <View style={{ flex: 1 }}>
       {!lotesData?.length ? (
-      <View className="flex-1 justify-center items-center py-8">
+        <View className="flex-1 justify-center items-center py-8">
           <Celeiro iconSize="lg" stroke="#ccc" />
           <Text className="text-gray-500 font-inter-regular mt-4 text-center">
             Nenhum lote encontrado
           </Text>
         </View>
-
       ) : (
-      <FlatList
-        data={lotesData}
-        keyExtractor={(item) => `chave-lote-${item.id}`}
-        renderItem={renderItem}
-        contentContainerStyle={{
-          padding: isDesktop ? 32 : isTablet ? 24 : 16,
-          paddingBottom: isWeb ? (isDesktop ? 120 : 100) : 80,
-          maxWidth: isDesktop ? 1200 : "100%",
-          alignSelf: "center",
-          width: "100%",
-        }}
-        showsVerticalScrollIndicator={!isWeb}
-        numColumns={isDesktop ? 2 : 1}
-        columnWrapperStyle={
-          isDesktop
-            ? {
-                justifyContent: "space-between",
-                paddingHorizontal: 12,
-              }
-            : undefined
-        }
-        key={isDesktop ? "desktop" : "mobile"}
-        ItemSeparatorComponent={() => (
-          <View style={{ height: isDesktop ? 16 : 12 }} />
-        )}
-        removeClippedSubviews={!isWeb}
-        maxToRenderPerBatch={isDesktop ? 20 : 10}
-        windowSize={isDesktop ? 21 : 10}
-      />
+        <FlatList
+          data={lotesData}
+          keyExtractor={(item) => `chave-lote-${item.id}`}
+          renderItem={renderItem}
+          contentContainerStyle={{
+            padding: isDesktop ? 32 : isTablet ? 24 : 16,
+            paddingBottom: isWeb ? (isDesktop ? 120 : 100) : 80,
+            maxWidth: isDesktop ? 1200 : "100%",
+            alignSelf: "center",
+            width: "100%",
+          }}
+          showsVerticalScrollIndicator={!isWeb}
+          numColumns={isDesktop ? 2 : 1}
+          columnWrapperStyle={
+            isDesktop
+              ? {
+                  justifyContent: "space-between",
+                  paddingHorizontal: 12,
+                }
+              : undefined
+          }
+          key={isDesktop ? "desktop" : "mobile"}
+          ItemSeparatorComponent={() => (
+            <View style={{ height: isDesktop ? 16 : 12 }} />
+          )}
+          removeClippedSubviews={!isWeb}
+          maxToRenderPerBatch={isDesktop ? 20 : 10}
+          windowSize={isDesktop ? 21 : 10}
+        />
       )}
     </View>
   );
