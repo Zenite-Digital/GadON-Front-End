@@ -71,7 +71,6 @@ export default function ExportarRelatorioScreen() {
           }}
         >
           <View className="pt-2 pb-6" style={{ gap: 12 }}>
-            {/* centraliza e limita largura dos blocos em telas largas */}
             <View
               className="w-full"
               style={[
@@ -111,7 +110,7 @@ export default function ExportarRelatorioScreen() {
         </View>
       </ScrollView>
 
-      {/* botão menor e renomeado */}
+      
       {isWide ? (
         <View className="py-3 items-center">
           <TouchableOpacity
@@ -119,8 +118,8 @@ export default function ExportarRelatorioScreen() {
             className="rounded-md items-center justify-center"
             style={{
               backgroundColor: Colors.brand.main,
-              height: 40, // menor altura
-              width: '60%', // largura reduzida e centralizada
+              height: 40, 
+              width: '60%', 
               maxWidth: 360,
               borderRadius: 8,
               alignSelf: 'center',

@@ -5,12 +5,14 @@ type FontAwesomeIconProps = {
   name: React.ComponentProps<typeof FontAwesome>["name"];
   onPress?: () => void;
   className?: string;
+  color?: string;
 };
 
 const FontAwesomeIcon = ({
   name,
   className,
   onPress,
+  color
 }: FontAwesomeIconProps) => {
   return (
     <FontAwesome
@@ -19,7 +21,7 @@ const FontAwesomeIcon = ({
       name={name}
       size={28}
       style={{ marginBottom: -3 }}
-      color="currentColor"
+      color={color}
     />
   );
 };

@@ -1,9 +1,13 @@
 import React, { useState, useMemo } from "react";
 import { View, Text, ScrollView } from "react-native";
 import Button from "@components/button";
-import animalsData from "@components/animals/mocks/animals.mocks";
 import AnimalFilters from "@components/animals/animals-filter";
 import AnimalList from "@components/animals/animals-list";
+import { useQuery } from "@tanstack/react-query";
+import { listAllAnimaisGroupedByFazenda } from "src/services/animais.api";
+import { useIsFocused } from "@react-navigation/native";
+import { Add } from "@assets/icons";
+import { router } from "expo-router";
 
 type AnimalFilters = {
   brinco: string;
@@ -14,6 +18,8 @@ type AnimalFilters = {
 };
 
 export default function Animais() {
+  const isFocused = useIsFocused();
+
   const [filters, setFilters] = useState<AnimalFilters>({
     brinco: "",
     sexo: "todos",
@@ -22,37 +28,13 @@ export default function Animais() {
     vacinado: "todos",
   });
 
-  const filteredAnimals = useMemo(() => {
-    return animalsData.filter((animal) => {
-      // Filtro por brinco
-      if (filters.brinco && !animal.brinco.includes(filters.brinco)) {
-        return false;
-      }
-
-      // Filtro por sexo
-      if (filters.sexo !== "todos" && animal.sexo !== filters.sexo) {
-        return false;
-      }
-
-      // Filtro por idade
-      if (filters.idadeMin && animal.idade < parseInt(filters.idadeMin)) {
-        return false;
-      }
-      if (filters.idadeMax && animal.idade > parseInt(filters.idadeMax)) {
-        return false;
-      }
-
-      // Filtro por vacinação
-      if (filters.vacinado !== "todos") {
-        const isVacinado = filters.vacinado === "sim";
-        if (animal.vacinado !== isVacinado) {
-          return false;
-        }
-      }
-
-      return true;
-    });
-  }, [filters]);
+  const { data: animaisAgrupados } = useQuery({
+    queryKey: ["animais", "agrupados", "fazenda"],
+    queryFn: listAllAnimaisGroupedByFazenda,
+    subscribed: isFocused,
+    enabled: isFocused,
+    refetchOnWindowFocus: true,
+  });
 
   return (
     <View className="flex-1 bg-white">
@@ -68,18 +50,24 @@ export default function Animais() {
 
           <AnimalFilters filters={filters} onFiltersChange={setFilters} />
 
-          <AnimalList animals={filteredAnimals} />
+          {animaisAgrupados && <AnimalList items={animaisAgrupados} />}
         </View>
       </ScrollView>
 
-      {/* Botão de exportar fixo no bottom */}
-      <View className="absolute bottom-6 left-6 right-6">
+      <View className="absolute bottom-6 right-6 m-0 p-0 flex flex-row gap-4">
         <Button
-          text="Exportar relatório"
           variant="solid"
+          className="rounded-xl text-lg p-4"
           color="main"
-          fullWidth
-          onPress={() => console.log("Exportar relatório")}
+          onPress={() => router.push("/exportar-relatorio")}
+          text="Exportar Relatório"
+        />
+        <Button
+          variant="solid"
+          className="rounded-xl text-lg p-4"
+          color="main"
+          onPress={() => router.push("/animais/cadastro")}
+          text="Adicionar"
         />
       </View>
     </View>

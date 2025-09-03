@@ -1,20 +1,21 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import { TouchableOpacity } from "react-native";
 import ChevronEsquerda from "@assets/icons/ChevronEsquerda";
-
-import "../../global.css";
-import { useGlobalProps } from "@hooks/useGlobalProps";
-
+import { Toaster } from "sonner-native";
 export { ErrorBoundary } from "expo-router";
 
+import "../../global.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: "tela-login",
 };
 
@@ -41,7 +42,12 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RootLayoutNav />
+      <Toaster />
+    </QueryClientProvider>
+  );
 }
 
 function RootLayoutNav() {
@@ -95,6 +101,28 @@ function RootLayoutNav() {
             headerStyle: {
               borderBottomColor: "#005E24",
             },
+          }}
+        />
+
+        <Stack.Screen
+          name="perfil"
+          options={{
+            title: "Meu Perfil",
+            headerTitleAlign: "center",
+            headerLeft: () => (
+              <FontAwesome
+                name="chevron-left"
+                size={20}
+                color="#000"
+                style={{ marginLeft: 20 }}
+                onPress={() => router.back()} // Adicione sua lógica de navegação
+              />
+            ),
+            headerStyle: {
+              borderBottomWidth: 2,
+              borderBottomColor: "#6DB388",
+            },
+            headerShadowVisible: false,
           }}
         />
 

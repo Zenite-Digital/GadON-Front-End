@@ -48,7 +48,7 @@ const Button = ({
   return (
     <Pressable
       className={cn(
-        "flex flwx-rowmin-w-2 p-2 rounded-lg items-center",
+        "flex flex-row min-w-2 p-2 m-0 rounded-lg items-center justify-center",
         theme.button,
         !fullWidth ? "self-start" : "w-full",
         className
