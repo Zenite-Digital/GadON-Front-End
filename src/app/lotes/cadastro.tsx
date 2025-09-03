@@ -23,9 +23,7 @@ const LoteSchema = yup.object().shape({
     .min(1, "Deve ser pelo menos 1")
     .required("Campo Obrigatório"),
 
-  pastoId: yup
-    .string()
-    .uuid("Id do Pasto inválido"),
+  pastoId: yup.string().uuid("Id do Pasto inválido"),
 
   fazendaId: yup
     .string()
@@ -34,7 +32,7 @@ const LoteSchema = yup.object().shape({
 });
 
 export default function CadastroLote() {
-  const { fazendaId } = useLocalSearchParams<{ fazendaId: string }>()
+  const { fazendaId } = useLocalSearchParams<{ fazendaId: string }>();
   const [fazendaSelecionada, setFazendaSelecionada] = useState<
     FazendaDTO | undefined
   >();
@@ -59,13 +57,11 @@ export default function CadastroLote() {
     mutationFn: createLote,
   });
 
-  const onSubmit = async (
-    data: Partial<yup.InferType<typeof LoteSchema>>
-  ) => {
+  const onSubmit = async (data: Partial<yup.InferType<typeof LoteSchema>>) => {
     try {
       if (data.pastoId === "") data.pastoId = undefined;
       await createLoteFn(data as yup.InferType<typeof LoteSchema>);
-      router.navigate("/lotes");
+      router.back();
     } catch (e) {
       console.error("Error creating lote:", e);
     }
@@ -100,10 +96,12 @@ export default function CadastroLote() {
                   <TextInput
                     placeholder="Digite o nome do lote"
                     value={values.nome}
-                    onChangeText={text => setFieldValue("nome", text)}
+                    onChangeText={(text) => setFieldValue("nome", text)}
                   />
                   {errors.nome && (
-                    <Text className="text-red-500 text-xs mt-1">{errors.nome}</Text>
+                    <Text className="text-red-500 text-xs mt-1">
+                      {errors.nome}
+                    </Text>
                   )}
                 </View>
 
@@ -113,11 +111,18 @@ export default function CadastroLote() {
                   <TextInput
                     placeholder="Digite a quantidade de animais"
                     value={values.quantidadeAnimais?.toString() ?? ""}
-                    onChangeText={text => setFieldValue("quantidadeAnimais", text.replace(/\D/g, ""))}
+                    onChangeText={(text) =>
+                      setFieldValue(
+                        "quantidadeAnimais",
+                        text.replace(/\D/g, "")
+                      )
+                    }
                     keyboardType="numeric"
                   />
                   {errors.quantidadeAnimais && (
-                    <Text className="text-red-500 text-xs mt-1">{errors.quantidadeAnimais}</Text>
+                    <Text className="text-red-500 text-xs mt-1">
+                      {errors.quantidadeAnimais}
+                    </Text>
                   )}
                 </View>
 

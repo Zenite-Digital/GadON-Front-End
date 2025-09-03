@@ -1,10 +1,8 @@
-import React, { useState, useMemo } from "react";
-import { View, Text, ScrollView } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import Button from "@components/button";
-import { useIsFocused } from "@react-navigation/native";
 import { router, useLocalSearchParams } from "expo-router";
 import LotesList from "@components/lotes";
-
 
 const lotes: any[] = [];
 
@@ -14,12 +12,11 @@ const filtroOptions = [
   { label: "Quantidade de Animais", value: "animais" },
 ];
 export default function Lotes() {
-  const isFocused = useIsFocused();
-  const {id} = useLocalSearchParams<{id: string}>();
+  const { id } = useLocalSearchParams<{ id: string }>();
 
   return (
     <View className="flex-1 bg-white">
-        <LotesList />
+      <LotesList />
 
       <View className="absolute bottom-6 right-6 m-0 p-0 flex flex-row gap-4">
         <Button
@@ -33,12 +30,14 @@ export default function Lotes() {
           variant="solid"
           className="rounded-xl text-lg p-4"
           color="main"
-          onPress={() => router.push({
-            pathname: "/lotes/cadastro",
-            params: {
-              fazendaId: id
-            }
-          })}
+          onPress={() =>
+            router.push({
+              pathname: "/lotes/cadastro",
+              params: {
+                fazendaId: id,
+              },
+            })
+          }
           text="Adicionar"
         />
       </View>
