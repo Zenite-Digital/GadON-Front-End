@@ -6,7 +6,7 @@ module.exports = ({ config }) => {
     ...config,
     extra: {
       ...config.extra,
-      BACKEND_URL: process.env.BACKEND_URL,
+      EXPO_PUBLIC_BACKEND_URL: process.env.EXPO_PUBLIC_BACKEND_URL,
       eas: {
         projectId: process.env.PROJECT_ID,
       },

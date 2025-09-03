@@ -33,9 +33,15 @@
       "typedRoutes": true
     },
     "extra": {
-      "BACKEND_URL": "http://localhost:3000",
+      "EXPO_PUBLIC_BACKEND_URL": "https://gadon-back-end.onrender.com",
       "router": {}
     },
-    "owner": "vitorpsogarcia"
+    "owner": "vitorpsogarcia",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/1abc10cc-ffbd-41c0-b57f-de38dadb186c"
+    }
   }
 }

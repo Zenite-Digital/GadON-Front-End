@@ -7,7 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "deploy": "npx expo export --platform web && eas deploy"
   },
   "jest": {
     "preset": "jest-expo"
@@ -40,7 +41,8 @@
     "react-native-web": "~0.20.0",
     "sonner-native": "^0.21.0",
     "tailwindcss": "^3.4.17",
-    "yup": "^1.7.0"
+    "yup": "^1.7.0",
+    "expo-updates": "~0.28.17"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
