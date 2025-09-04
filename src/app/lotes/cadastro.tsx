@@ -73,7 +73,7 @@ export default function CadastroLote() {
         <Button
           Icon={<ChevronEsquerda />}
           variant="outline"
-          onPress={() => router.navigate("/lotes")}
+          onPress={() => router.back()}
         />
         <Text className="text-base">Cadastrar Lote</Text>
         <Text></Text>
@@ -157,7 +157,7 @@ export default function CadastroLote() {
                   color="secondary"
                   className="w-2/5 max-w-xs h-12"
                   text="Cancelar"
-                  onPress={() => router.navigate("/lotes")}
+                  onPress={() => router.back()}
                   disabled={isCreatingLote}
                   fullWidth
                 />
